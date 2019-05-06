@@ -5,6 +5,8 @@ sudo apt upgrade
 sudo apt install tilix vim inkscape
 sudo apt install zsh gnome-tweaks nautilus-dropbox
 vlc
+pass
+keepassxc
 git
 tig
 meld
@@ -15,6 +17,7 @@ htop
 vis
 ranger
 pandoc
+powernap
 powertop
 transmission-remote-gtk
 transmission
@@ -22,6 +25,8 @@ cm-super
 cm-super-x11
 npm
 fasd
+direnv
+gnupg2
 network-manager-openvpn
 sudo apt install lyx texlive-fonts-recommended texlive-science texlive-extra-utils build-essential
 
@@ -42,6 +47,8 @@ npm install -g git-run
 sudo add-apt-repository ppa:oguzhaninan/stacer
 sudo apt-get update
 sudo apt-get install stacer
+
+sudo apt install golang
 
 echo "deb https://deb.etcher.io stable etcher" | sudo tee /etc/apt/sources.list.d/balena-etcher.list
 sudo apt-key adv --keyserver keyserver.ubuntu.com --recv-keys 379CE192D401AB61
@@ -77,6 +84,12 @@ npm install sqlectron-core -g
  9257  sudo apt install docker.io
 
 pip install ansible awscli docker-compose
+
+
+export CLOUD_SDK_REPO="cloud-sdk-$(lsb_release -c -s)"
+echo "deb http://packages.cloud.google.com/apt $CLOUD_SDK_REPO main" | sudo tee -a /etc/apt/sources.list.d/google-cloud-sdk.list
+curl https://packages.cloud.google.com/apt/doc/apt-key.gpg | sudo apt-key add -
+sudo apt-get update && sudo apt-get install google-cloud-sdk
 
 
 install steam

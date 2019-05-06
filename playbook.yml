@@ -1,0 +1,9 @@
+#!/usr/bin/env ansible-playbook
+---
+
+- hosts: all
+  any_errors_fatal: true
+  roles:
+    - { role: bash, tags: [rc, bash, common] }
+    - { role: common, become: yes, become_method: sudo, tags: common }
+    - { role: python, tags: python }

@@ -1,0 +1,76 @@
+---
+
+- name: common | Set locale
+  locale_gen:
+    name: '{{ locale }}'
+    state: present
+  # command: locale-gen en_GB.UTF-8 && update-locale en_GB.UTF-8
+
+- name: common | Create directories
+  file:
+    path: '{{ item }}'
+    state: directory
+    owner: '{{ user }}'
+    group: '{{ group }}'
+  loop:
+    - '{{ soft_dir }}'
+    - '{{ user_local_dir }}'
+    - '{{ tmp_install_dir }}'
+    - '{{ projects_dir }}'
+  become: yes
+  become_method: sudo
+
+- apt_repository:
+    repo: '{{ item }}'
+    state: present
+  with_items:
+    - deb-src http://archive.ubuntu.com/ubuntu/ {{ ansible_distribution_release }}-updates main restricted
+    - deb-src http://archive.ubuntu.com/ubuntu/ {{ ansible_distribution_release }}-updates universe
+    - deb-src http://archive.ubuntu.com/ubuntu/ {{ ansible_distribution_release }}-security main restricted
+    - deb-src http://archive.ubuntu.com/ubuntu/ {{ ansible_distribution_release }}-security universe
+    - deb-src http://archive.ubuntu.com/ubuntu/ {{ ansible_distribution_release }} main restricted
+    - deb-src http://archive.ubuntu.com/ubuntu/ {{ ansible_distribution_release }} universe
+  become: yes
+  become_method: sudo
+
+- name: Upgrade APT packages
+  apt:
+    update_cache: yes
+    upgrade: yes
+
+- name: Install APT packages
+  apt:
+    name:
+    - python3
+    - python3-dev
+    - python3-venv
+    - python3-pip
+    - locales
+    - tzdata
+    - build-essential
+    - curl
+    - git
+    - tig
+    - ranger
+    - direnv
+    - vim
+    - vis
+    - fasd
+    - gnupg2
+    - npm
+    - ntp
+    - ack
+    - ntpdate
+    - htop
+    - bash-completion
+    - ufw
+    - sudo
+    - apt-transport-https
+    - ca-certificates
+    - software-properties-common
+    - ssh
+    - rsync
+    - sshpass
+    - pass
+    - language-pack-en
+    state: present

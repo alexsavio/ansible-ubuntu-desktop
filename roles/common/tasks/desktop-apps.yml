@@ -1,0 +1,42 @@
+---
+
+- name: Install Desktop apps APT packages
+  apt:
+    name:
+    - tilix
+    - inkscape
+    - gnome-tweaks
+    - nautilus-dropbox
+    - vlc
+    - clementine
+    - keepassxc
+    - meld
+    - virtualbox
+    - pandoc
+    - network-manager-openvpn
+    state: present
+
+- name: Install energy related packages
+  apt:
+    name:
+    - powernap
+    - powertop
+    state: present
+
+- name: Install torrent related apps
+  apt:
+    name:
+    - transmission-remote-gtk
+    - transmission
+    state: present
+
+- name: Install LateX related apps
+  apt:
+    name:
+    - cm-super
+    - cm-super-x11
+    - lyx
+    - texlive-fonts-recommended
+    - texlive-science
+    - texlive-extra-utils
+    state: present
