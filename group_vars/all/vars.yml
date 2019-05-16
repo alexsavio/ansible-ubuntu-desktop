@@ -1,0 +1,13 @@
+---
+
+ansible_shell_executable: /bin/bash
+ansible_python_interpreter: /usr/bin/python3
+user: "{{ ansible_user }}"
+group: "{{ ansible_user }}"
+
+home_dir: '/home/{{ user }}'
+
+locale: en_US.UTF-8
+overwrite_if_exists: no
+
+n_cpus: 1

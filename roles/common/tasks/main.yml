@@ -47,14 +47,17 @@
     - python3-pip
     - locales
     - tzdata
+    - make
     - build-essential
+    - llvm
     - curl
     - git
     - tig
+    - wget
     - ranger
     - direnv
     - vim
-    - vis
+    - nvim
     - fasd
     - gnupg2
     - npm
@@ -72,5 +75,6 @@
     - rsync
     - sshpass
     - pass
+    - xdot
     - language-pack-en
     state: present
