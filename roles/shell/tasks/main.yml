@@ -1,12 +1,16 @@
 ---
 
-- name: Install APT packages
+- name: Install zsh
   apt:
     name:
     - zsh
   become: yes
   become_method: sudo
 
+- include_tasks: homeschick.yml
+  tags: homeschick
 
-- install homeschick
-- fetch dotfiles
+- name: Change the default shell for {{ ansible_user }}
+  user:
+    name: "{{ ansible_user }}"
+    shell: /bin/zsh

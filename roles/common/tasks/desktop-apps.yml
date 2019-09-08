@@ -15,6 +15,7 @@
     - pandoc
     - network-manager-openvpn
     - chrome-gnome-shell
+    - pdf-presenter-console
     state: present
 
 - name: Install energy related packages
@@ -41,3 +42,13 @@
     - texlive-science
     - texlive-extra-utils
     state: present
+
+- name: Install NVidia stuff
+  apt:
+    name:
+    - mate-optimus
+    state: present
+
+# echo "deb https://deb.etcher.io stable etcher" | sudo tee /etc/apt/sources.list.d/balena-etcher.list
+# sudo apt-key adv --keyserver keyserver.ubuntu.com --recv-keys 379CE192D401AB61
+# balena-etcher-electron

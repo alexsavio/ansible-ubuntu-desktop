@@ -77,4 +77,10 @@
     - pass
     - xdot
     - language-pack-en
+    - cmake
+    - exfat-fuse
+    - exfat-utils
+    - ttf-mscorefonts-installer
+    - apcalc
+    - net-tools
     state: present
