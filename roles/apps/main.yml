@@ -1,0 +1,13 @@
+---
+
+- include_tasks: desktop.yml
+  tags: desktop
+
+- include_tasks: snap.yml
+  tags: snap
+
+- include_tasks: nvidia.yml
+  tags: nvidia
+
+- include_tasks: docker.yml
+  tags: docker

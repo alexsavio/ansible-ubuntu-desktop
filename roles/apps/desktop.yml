@@ -8,9 +8,11 @@
     - gnome-tweaks
     - nautilus-dropbox
     - vlc
+    - zeal
     - clementine
     - keepassxc
     - meld
+    - gparted
     - virtualbox
     - pandoc
     - network-manager-openvpn
@@ -43,12 +45,25 @@
     - texlive-extra-utils
     state: present
 
-- name: Install NVidia stuff
-  apt:
-    name:
-    - mate-optimus
+- name: Add Etcher apt repository
+  apt_repository:
+    repo: deb https://deb.etcher.io stable etcher
+    filename: balena-etcher.list
     state: present
 
-# echo "deb https://deb.etcher.io stable etcher" | sudo tee /etc/apt/sources.list.d/balena-etcher.list
-# sudo apt-key adv --keyserver keyserver.ubuntu.com --recv-keys 379CE192D401AB61
-# balena-etcher-electron
+- name: Add Etcher apt key
+  apt_key:
+    keyserver: keyserver.ubuntu.com
+    id: 379CE192D401AB61
+
+- name: Add Etcher apt key
+  apt_key:
+    keyserver: keyserver.ubuntu.com
+    id: 379CE192D401AB61
+
+- name: Install Balena Etcher
+  apt:
+    name:
+    - balena-etcher-electron
+    update_cache: yes
+    state: present

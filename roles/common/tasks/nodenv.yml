@@ -1,0 +1,21 @@
+---
+
+- name: Clone the nodenv repository in {{ home_dir }}/.nodenv
+  git:
+    repo: https://github.com/nodenv/nodenv.git
+    dest: "{{ home_dir }}/.nodenv"
+    update:
+
+- name: Try to compile the nodeenv dynamic bash extension to speed up nodenv
+  shell: src/configure && make -C src
+  args:
+    chdir: "{{ home_dir }}/.nodenv"
+
+- name: Add  {{ home_dir }}/.nodenv to $PATH
+  lineinfile:
+    path: "{{ home_dir }}/.bashrc"
+    regexp: '^export .*\.nodenv/bin.*'
+    line: export PATH="$HOME/.nodenv/bin:$PATH"
+
+- name: Set up nodenv in your shell
+  shell: "{{ home_dir }}/.nodenv/bin/nodenv init"

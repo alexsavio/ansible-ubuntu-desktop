@@ -37,5 +37,5 @@
   shell: |
     eval "$({{pyenv_bin }}/pyenv init -)"
     eval "$({{pyenv_bin }}/pyenv virtualenv-init -)"
-    {{pyenv_bin }}/pyenv install {{ python_version }}
-    {{pyenv_bin }}/pyenv global {{ python_version }}
+    {{ pyenv_bin }}/pyenv install {{ python_version }}
+    {{ pyenv_bin }}/pyenv global {{ python_version }}

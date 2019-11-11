@@ -1,0 +1,16 @@
+---
+
+- name: Install snap applications
+  snap:
+    name:
+      - spotify
+      - telegram-desktop
+      - mailspring
+      - insomnia
+
+- name: Install snap classic applications
+  snap:
+    name:
+      - skype
+      - slack
+      - pycharm-community

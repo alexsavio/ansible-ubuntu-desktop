@@ -1,0 +1,7 @@
+---
+
+- name: Install NVidia stuff
+  apt:
+    name:
+    - mate-optimus
+    state: present
