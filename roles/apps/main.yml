@@ -6,6 +6,15 @@
 - include_tasks: snap.yml
   tags: snap
 
+- include_tasks: etcher.yml
+  tags: etcher
+
+- include_tasks: mega.yml
+  tags: mega
+
+# - include_tasks: boostnote.yml
+#   tags: boostnote
+
 - include_tasks: nvidia.yml
   tags: nvidia
 

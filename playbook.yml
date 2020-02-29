@@ -5,8 +5,10 @@
   connection: local
   any_errors_fatal: true
   roles:
-    - { role: shell, tags: [shell, common] }
-    - { role: common, tags: [common] }
-    # - { role: python, tags: python }
+    - { role: shell, tags: shell }
+    - { role: common, tags: common }
+    - { role: python, tags: python }
+    # - { role: node, tags: node }
+    # - { role: golang, tags: golang }
     # - { role: apps, tags: apps }
     # - { role: cloud_tools, tags: cloud }

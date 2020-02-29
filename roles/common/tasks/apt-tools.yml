@@ -40,7 +40,7 @@
     - ranger
     - direnv
     - vim
-    - nvim
+    - neovim
     - fasd
     - gnupg2
     - npm
