@@ -11,4 +11,4 @@ python-apt = "*"
 python-semantic-release = "*"
 
 [scripts]
-playbook = "./playbook.yml -K --extra-vars '@group_vars/laptops/xps15/vars.yml'"
+playbook = "./playbook.yml -K"

@@ -8,11 +8,12 @@
     repo: https://github.com/andsens/homeshick.git
     dest: "{{ homeschick_home }}"
 
-- name: Clone dotfiles with branch {{ dotfiles_branch }} into homeschick
+- name: Clone {{ homeschick_dotfiles }} at branch {{ dotfiles_branch }} into homeschick
   git:
     repo: https://github.com/{{ homeschick_dotfiles }}.git
     dest: "{{ home_dir }}/.homesick/repos/dotfiles"
     version: "{{ dotfiles_branch }}"
+    update: no
 
 - name: Run homeschick link --force
   command: "{{ homeschick_home }}/bin/homeshick -f link"

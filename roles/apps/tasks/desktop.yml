@@ -19,6 +19,8 @@
     - chrome-gnome-shell
     - pdf-presenter-console
     state: present
+  become: yes
+  become_method: sudo
 
 - name: Install energy related packages
   apt:
@@ -26,6 +28,8 @@
     - powernap
     - powertop
     state: present
+  become: yes
+  become_method: sudo
 
 - name: Install torrent related apps
   apt:
@@ -33,6 +37,8 @@
     - transmission-remote-gtk
     - transmission
     state: present
+  become: yes
+  become_method: sudo
 
 - name: Install LateX related apps
   apt:
@@ -44,4 +50,6 @@
     - texlive-science
     - texlive-extra-utils
     state: present
+  become: yes
+  become_method: sudo
 

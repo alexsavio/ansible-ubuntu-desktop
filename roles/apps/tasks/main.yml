@@ -6,8 +6,8 @@
 - include_tasks: snap.yml
   tags: snap
 
-- include_tasks: etcher.yml
-  tags: etcher
+# - include_tasks: etcher.yml
+#   tags: etcher
 
 - include_tasks: mega.yml
   tags: mega

@@ -7,9 +7,6 @@ install:
 	pipenv --three --site-packages
 	pipenv install --dev --skip-lock
 
-playbook:
-	pipenv run playbook
-
 clean: clean-ansible
 
 clean-ansible:

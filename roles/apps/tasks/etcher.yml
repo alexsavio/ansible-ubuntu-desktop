@@ -1,0 +1,49 @@
+---
+
+# - name: Add Etcher apt key
+#   apt_key:
+#     keyserver: keyserver.ubuntu.com
+#     id: 379CE192D401AB61
+#   become: yes
+#   become_method: sudo
+
+# - name: Add Etcher apt repository
+#   apt_repository:
+#     repo: deb https://deb.etcher.io stable etcher
+#     filename: balena_etcher
+#     state: present
+#   become: yes
+#   become_method: sudo
+
+# - name: Install Balena Etcher
+#   apt:
+#     name:
+#     - balena-etcher-electron
+#     update_cache: yes
+#     state: present
+#   become: yes
+#   become_method: sudo
+- set_fact:
+    etcher_version: 1.5.79
+
+- name: Download Balena Etcher installer package for Linux amd64
+  get_url:
+    url: https://github.com/balena-io/etcher/releases/download/v{{ etcher_version }}/balena-etcher-electron-{{ etcher_version }}-linux-x64.zip
+    dest: "{{ home_dir }}/Downloads/balena-etcher-electron-{{ etcher_version }}-linux-x64.zip"
+  when: "'64' in ansible_architecture and 'Linux' == ansible_system"
+
+- name: Unzip Balena Etcher installer archive
+  zip:
+    path: "{{ home_dir }}/Downloads/balena-etcher-electron-{{ etcher_version }}-linux-x64.zip"
+    mode: 0770
+
+- name: Set executable flag in Balena Etcher installer file
+  file:
+    path: "{{ home_dir }}/Downloads/balena-etcher-electron-{{ etcher_version }}-linux-x64.zip"
+    mode: 0770
+
+- name: Run Balena Etcher installer
+  command: "bash pyenv-installer"
+  args:
+    chdir: "{{ home_dir }}"
+    creates: "{{ home_dir }}/.pyenv"

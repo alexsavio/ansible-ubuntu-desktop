@@ -8,6 +8,8 @@
       - mailspring
       - insomnia
       - teams-for-linux
+  become: yes
+  become_method: sudo
 
 - name: Install snap classic applications
   snap:
@@ -15,3 +17,6 @@
       - skype
       - slack
       - pycharm-community
+    classic: yes
+  become: yes
+  become_method: sudo

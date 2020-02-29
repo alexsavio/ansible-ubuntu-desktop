@@ -14,5 +14,5 @@ make install
 # Launch
 
 ```bash
-make playbook
+pipenv run playbook --extra-vars '@group_vars/laptops/xps15/vars.yml'
 ```

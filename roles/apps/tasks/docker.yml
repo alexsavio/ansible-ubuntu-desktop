@@ -4,12 +4,16 @@
   apt_key:
     url: https://download.docker.com/linux/ubuntu/gpg
     state: present
+  become: yes
+  become_method: sudo
 
 - name: Add the Docker Apt repository
   apt_repository:
     repo: deb [arch=amd64] https://download.docker.com/linux/ubuntu {{ ansible_distribution_release }} stable
     state: present
     filename: docker
+  become: yes
+  become_method: sudo
 
 - name: Install Docker
   apt:
@@ -19,31 +23,54 @@
     - containerd.io
     update_cache: yes
     state: present
+  become: yes
+  become_method: sudo
 
 - name: Ensure docker group exists
   group:
     name: docker
     state: present
+  become: yes
+  become_method: sudo
 
 - name: Add the user {{ user }} to the docker group
   user:
     name: "{{ user }}"
     group: docker
+  become: yes
+  become_method: sudo
 
 - name: Download dive for docker
   get_url:
     url: https://github.com/wagoodman/dive/releases/download/v0.9.1/dive_0.9.1_linux_amd64.deb
-    dest: /home/{{ ansible_env.USER }}/Downloads/dive.deb
+    dest: "{{ home_dir }}/Downloads/dive.deb"
   when: dive_check_deb.rc == 1
+  become: yes
+  become_method: sudo
 
 - name: Install dive for docker
   apt:
-    deb: /home/{{ ansible_env.USER }}/Downloads/dive.deb
+    deb: "{{ home_dir }}/Downloads/dive.deb"
   sudo: true
   when: dive_check_deb.rc == 1
+  become: yes
+  become_method: sudo
 
-# https://github.com/docker/docker-credential-helpers
-# install libsecrets-1-dev
+- name: Clone the docker-credential-helpers repository
+  git:
+    repo: https://github.com/docker/docker-credential-helpers.git
+    dest: "{{ home_dir }}/software/docker-credential-helpers"
+    version: v.0.6.3
+
+- name: Install build dependencies for docker-credential-helpers
+  apt:
+    name:
+    - libsecrets-1-dev
+    state: present
+  become: yes
+  become_method: sudo
+
+# install 
 # link bin/pass in ~/bin
 # make pass
 # ~/.docker/config.json
