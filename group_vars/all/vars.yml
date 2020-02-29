@@ -10,6 +10,8 @@ home_dir: '/home/{{ user }}'
 locale: en_US.UTF-8
 overwrite_if_exists: no
 
-python_version: 3.8.0
+python_version: 3.8.2
 
 n_cpus: 1
+
+homeschick_dotfiles: alexsavio/dotfiles

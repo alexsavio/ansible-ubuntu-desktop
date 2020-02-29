@@ -4,13 +4,19 @@
   apt:
     name:
     - zsh
+    - git
   become: yes
   become_method: sudo
+
+- include_tasks: ohmyzsh.yml
+  tags: ohmyzsh
 
 - include_tasks: homeschick.yml
   tags: homeschick
 
-- name: Change the default shell for {{ ansible_user }}
+- name: Change the default shell for {{ user }}
   user:
-    name: "{{ ansible_user }}"
+    name: "{{ user }}"
     shell: /bin/zsh
+  become: yes
+  become_method: sudo

@@ -1,30 +1,30 @@
 ---
 
-- name: fetch pyenv installer script
+- name: Fetch pyenv installer script
   get_url:
     url: https://github.com/pyenv/pyenv-installer/raw/master/bin/pyenv-installer
-    dest: '{{ home_dir }}/pyenv-installer'
+    dest: "{{ home_dir }}/pyenv-installer"
     mode: 0770
 
-- name: run pyenv installer script
-  command: 'bash pyenv-installer'
+- name: Run pyenv installer script
+  command: "bash pyenv-installer"
   args:
-    chdir: '{{ home_dir }}'
+    chdir: "{{ home_dir }}"
 
 - name: remote pyenv-installer script
   file:
-    path: '{{ home_dir }}/pyenv-installer'
+    path: "{{ home_dir }}/pyenv-installer"
     state: absent
 
 - set_fact:
-    pyenv_bin: '{{ ansible_env.HOME }}/.pyenv/bin'
+    pyenv_bin: "{{ ansible_env.HOME }}/.pyenv/bin"
 
-- name: add {{ pyenv_bin }} to {{ ansible_env.HOME }}/.bashrc
+- name: Add {{ pyenv_bin }} to {{ ansible_env.HOME }}/.bashrc
   blockinfile:
     path: "{{ home_dir }}/.bashrc"
     mode: 0644
-    owner: '{{ user }}'
-    group: '{{ group }}'
+    owner: "{{ user }}"
+    group: "{{ group }}"
     marker: "# {mark} ANSIBLE MANAGED BLOCK pyenv"
     create: yes
     block: |

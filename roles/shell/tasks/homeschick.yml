@@ -1,17 +1,18 @@
 ---
 
+- set_fact:
+    homeschick_home: "{{ home_dir }}/.homesick/repos/homeshick"
+
 - name: Clone homeschick
   git:
     repo: https://github.com/andsens/homeshick.git
-    dest: "{{ home_dir }}/.homesick/repos/homeshick"
+    dest: "{{ homeschick_home }}"
 
-- name: Add setup line for homeshick in .bashrc
-  lineinfile:
-    path: "{{ home_dir }}/.bashrc"
-    regexp: '^source.*homeschick.sh$'
-    line: source "$HOME/.homesick/repos/homeshick/homeshick.sh"
+- name: Clone dotfiles with branch {{ dotfiles_branch }} into homeschick
+  git:
+    repo: https://github.com/{{ homeschick_dotfiles }}.git
+    dest: "{{ home_dir }}/.homesick/repos/dotfiles"
+    version: "{{ dotfiles_branch }}"
 
-- name: Add the homeschick castle from {{ github_dotfiles_path }}
-  command: "{{ home_dir }}/.homesick/repos/homeshick/bin/homeshick clone {{ github_dotfiles_path }}"
-  args:
-    creates: "{{ home_dir }}/.homeschick/repos/dotfiles"
+- name: Run homeschick link --force
+  command: "{{ homeschick_home }}/bin/homeshick -f link"

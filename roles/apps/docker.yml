@@ -25,9 +25,9 @@
     name: docker
     state: present
 
-- name: Add the user {{ ansible_user }} to the docker group
+- name: Add the user {{ user }} to the docker group
   user:
-    name: "{{ ansible_user }}"
+    name: "{{ user }}"
     group: docker
 
 - name: Download dive for docker

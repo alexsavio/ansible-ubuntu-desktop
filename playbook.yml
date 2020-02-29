@@ -1,11 +1,12 @@
 #!/usr/bin/env ansible-playbook
 ---
 
-- hosts: all
+- hosts: localhost
+  connection: local
   any_errors_fatal: true
   roles:
-    - { role: bash, tags: [rc, bash, common] }
-    - { role: common, become: yes, become_method: sudo, tags: common }
-    - { role: python, tags: python }
-    - { role: apps, become: yes, become_method: sudo, tags: apps }
-    - { role: cloud_tools, tags: cloud }
+    - { role: shell, tags: [shell, common] }
+    - { role: common, tags: [common] }
+    # - { role: python, tags: python }
+    # - { role: apps, tags: apps }
+    # - { role: cloud_tools, tags: cloud }

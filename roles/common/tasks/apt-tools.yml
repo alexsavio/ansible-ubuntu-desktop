@@ -1,7 +1,7 @@
 ---
 
 - apt_repository:
-    repo: '{{ item }}'
+    repo: "{{ item }}"
     state: present
   with_items:
     - deb-src http://archive.ubuntu.com/ubuntu/ {{ ansible_distribution_release }}-updates main restricted
@@ -17,6 +17,8 @@
   apt:
     update_cache: yes
     upgrade: yes
+  become: yes
+  become_method: sudo
 
 - name: Install APT packages
   apt:
@@ -67,3 +69,5 @@
     - ssh-askpass-gnome
     - ssh-askpass
     state: present
+  become: yes
+  become_method: sudo

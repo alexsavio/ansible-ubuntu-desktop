@@ -3,8 +3,12 @@ version-string := $(shell grep $(version-var) version.py)
 version := $(subst version = ,,$(version-string))
 
 install:
-	pip install -U pip pipenv setuptools
+	python3 -m pip install -U pip pipenv setuptools
+	pipenv --three --site-packages
 	pipenv install --dev --skip-lock
+
+playbook:
+	pipenv run playbook
 
 clean: clean-ansible
 
