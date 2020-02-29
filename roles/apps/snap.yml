@@ -7,6 +7,7 @@
       - telegram-desktop
       - mailspring
       - insomnia
+      - teams-for-linux
 
 - name: Install snap classic applications
   snap:

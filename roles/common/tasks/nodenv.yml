@@ -4,7 +4,7 @@
   git:
     repo: https://github.com/nodenv/nodenv.git
     dest: "{{ home_dir }}/.nodenv"
-    update:
+    update: true
 
 - name: Try to compile the nodeenv dynamic bash extension to speed up nodenv
   shell: src/configure && make -C src

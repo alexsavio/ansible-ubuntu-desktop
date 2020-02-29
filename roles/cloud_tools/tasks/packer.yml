@@ -1,0 +1,10 @@
+---
+
+- name: fetch packer {{ packer_version }} package
+  get_url:
+    url: '{{ packer_url }}'
+    dest: '{{ home_dir }}'
+    mode: 0770
+
+
+

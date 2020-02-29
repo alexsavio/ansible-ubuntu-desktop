@@ -29,3 +29,39 @@
   user:
     name: "{{ ansible_user }}"
     group: docker
+
+- name: Download dive for docker
+  get_url:
+    url: https://github.com/wagoodman/dive/releases/download/v0.9.1/dive_0.9.1_linux_amd64.deb
+    dest: /home/{{ ansible_env.USER }}/Downloads/dive.deb
+  when: dive_check_deb.rc == 1
+
+- name: Install dive for docker
+  apt:
+    deb: /home/{{ ansible_env.USER }}/Downloads/dive.deb
+  sudo: true
+  when: dive_check_deb.rc == 1
+
+# https://github.com/docker/docker-credential-helpers
+# install libsecrets-1-dev
+# link bin/pass in ~/bin
+# make pass
+# ~/.docker/config.json
+# ❯ more ~/.docker/config.json
+# {
+# 	"auths": {
+# 		"https://index.docker.io/v1/": {}
+# 	},
+# 	"HttpHeaders": {
+# 		"User-Agent": "Docker-Client/19.03.2 (linux)"
+# 	},
+# 	"credsStore": "pass",
+# 	"credHelpers": {
+# 		"asia.gcr.io": "gcloud",
+# 		"eu.gcr.io": "gcloud",
+# 		"gcr.io": "gcloud",
+# 		"marketplace.gcr.io": "gcloud",
+# 		"staging-k8s.gcr.io": "gcloud",
+# 		"us.gcr.io": "gcloud"
+# 	}
+# }

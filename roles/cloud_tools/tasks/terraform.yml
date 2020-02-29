@@ -1,0 +1,17 @@
+---
+
+# - name: Download terraform archive Linux 64 bits
+#   get_url:
+#     url: https://releases.hashicorp.com/terraform/{{ terraform_version }}/terraform_{{ terraform_version }}_linux_amd64.zip
+#     dest: /tmp/terraform-{{terraform_version}}.zip
+#   when: "'64' in ansible_architecture and 'Linux' == ansible_system"
+
+- name: Clone the tfenv repository in {{ home_dir }}/.tfenv
+  git:
+    repo: https://github.com/tfutils/tfenv.git
+    dest: "{{ home_dir }}/.tfenv"
+    update: true
+
+
+git clone  ~/.tfenv
+echo 'export PATH="$HOME/.tfenv/bin:$PATH"' >> ~/.bash_profile

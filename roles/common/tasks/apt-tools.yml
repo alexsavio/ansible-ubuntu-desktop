@@ -64,4 +64,6 @@
     - ttf-mscorefonts-installer
     - apcalc
     - net-tools
+    - ssh-askpass-gnome
+    - ssh-askpass
     state: present
