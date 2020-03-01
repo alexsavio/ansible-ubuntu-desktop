@@ -5,23 +5,17 @@
     name:
       - awscli
 
+- set_fact:
+    aws_vault_version: 5.3.2
+    cw_version: 3.2.3
+
 - name: Download aws-vault
   get_url:
-    url: https://github.com/99designs/aws-vault/releases/download/v5.0.0-beta3/aws-vault-linux-amd64
-    dest: "{{ bin_dir }}/"
-  when: aws_vault_check.rc == 1
+    url: https://github.com/99designs/aws-vault/releases/download/v{{ aws_vault_version }}/aws-vault-linux-amd64
+    dest: "{{ bin_dir }}/aws-vault"
 
-- name: Download cw
-  get_url:
-    url: https://github.com/lucagrulla/cw/releases/download/v3.2.3/cw_amd64.deb
-    dest: /home/{{ ansible_env.USER }}/Downloads/cw.deb
-  when: cw_check.rc == 1
-
-- name: Install cw
+- name: Install lucagrulla/cw
   apt:
-    deb: /home/{{ ansible_env.USER }}/Downloads/cw.deb
-  when: cw_check.rc == 1
+    deb: https://github.com/lucagrulla/cw/releases/download/v{{ cw_version }}/cw_amd64.deb
   become: yes
   become_method: sudo
-
-
