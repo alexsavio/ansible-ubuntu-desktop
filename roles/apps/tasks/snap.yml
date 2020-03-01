@@ -16,7 +16,7 @@
     name:
       - skype
       - slack
-      - pycharm-community
+      # - pycharm-community
     classic: yes
   become: yes
   become_method: sudo

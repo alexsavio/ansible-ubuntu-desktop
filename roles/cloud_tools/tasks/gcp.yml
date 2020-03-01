@@ -4,12 +4,16 @@
   apt_key:
     url: https://packages.cloud.google.com/apt/doc/apt-key.gpg
     state: present
+  become: yes
+  become_method: sudo
 
 - name: Add the Google Cloud Apt repository
   apt_repository:
     repo: deb http://packages.cloud.google.com/apt cloud-sdk-{{ ansible_distribution_release }} main
     state: present
-    filename: docker
+    filename: google-cloud
+  become: yes
+  become_method: sudo
 
 - name: Install Google Cloud SDK
   apt:
@@ -17,3 +21,5 @@
     - google-cloud-sdk
     update_cache: yes
     state: present
+  become: yes
+  become_method: sudo

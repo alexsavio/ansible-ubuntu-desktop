@@ -60,7 +60,6 @@ target/
 devdoc/
 
 .DS_Store
-.vscode
 *~
 *#
 *retry
@@ -68,3 +67,4 @@ devdoc/
 .python-version
 vault-pass.txt
 .ansible_cache/
+roles/vpns

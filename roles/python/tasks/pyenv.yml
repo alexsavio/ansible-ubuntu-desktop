@@ -18,21 +18,20 @@
     state: absent
 
 - set_fact:
-    pyenv_bin: "{{ ansible_env.HOME }}/.pyenv/bin"
+    pyenv_bin: "{{ home_dir }}/.pyenv/bin"
 
-# - name: Add {{ pyenv_bin }} to {{ ansible_env.HOME }}/.bashrc
-#   blockinfile:
-#     path: "{{ home_dir }}/.bashrc"
-#     mode: 0644
-#     owner: "{{ user }}"
-#     group: "{{ group }}"
-#     marker: "# {mark} ANSIBLE MANAGED BLOCK pyenv"
-#     create: yes
-#     block: |
-#       export PATH="{{ pyenv_bin }}:$PATH"
-#       eval "$(pyenv init -)"
-#       eval "$(pyenv virtualenv-init -)"
-#       pyenv global {{ python_version }}
+- name: Add {{ pyenv_bin }} to {{ home_dir }}/.bashrc
+  blockinfile:
+    path: "{{ home_dir }}/.bashrc"
+    mode: 0644
+    owner: "{{ user }}"
+    group: "{{ group }}"
+    marker: "# {mark} ANSIBLE MANAGED BLOCK pyenv"
+    create: yes
+    block: |
+      export PATH="{{ pyenv_bin }}:$PATH"
+      eval "$(pyenv init -)"
+      eval "$(pyenv virtualenv-init -)"
 
 - name: Install Python {{ python_version }}
   shell: |

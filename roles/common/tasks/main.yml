@@ -16,7 +16,7 @@
     group: "{{ group }}"
   loop:
     - "{{ soft_dir }}"
-    - "{{ user_local_dir }}"
+    - "{{ bin_dir }}"
     - "{{ tmp_install_dir }}"
     - "{{ projects_dir }}"
   become: yes

@@ -1,19 +1,13 @@
 ---
 
-- name: Add the Google Cloud gpg signing key to Apt
-  apt_key:
-    url: https://packages.cloud.google.com/apt/doc/apt-key.gpg
-    state: present
+- include_tasks: terraform.yml
+  tags: terraform
 
-- name: Add the Google Cloud Apt repository
-  apt_repository:
-    repo: deb http://packages.cloud.google.com/apt cloud-sdk-{{ ansible_distribution_release }} main
-    state: present
-    filename: docker
+- include_tasks: packer.yml
+  tags: packer
 
-- name: Install Google Cloud SDK
-  apt:
-    name:
-    - google-cloud-sdk
-    update_cache: yes
-    state: present
+- include_tasks: gcp.yml
+  tags: gcp
+
+- include_tasks: aws.yml
+  tags: aws

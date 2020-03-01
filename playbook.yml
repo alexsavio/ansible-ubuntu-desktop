@@ -11,4 +11,4 @@
     - { role: node, tags: node }
     - { role: golang, tags: golang }
     - { role: apps, tags: apps }
-    # - { role: cloud_tools, tags: cloud }
+    - { role: cloud_tools, tags: cloud }

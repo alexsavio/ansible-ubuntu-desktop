@@ -8,7 +8,7 @@
 - name: Download aws-vault
   get_url:
     url: https://github.com/99designs/aws-vault/releases/download/v5.0.0-beta3/aws-vault-linux-amd64
-    dest: "{{ home_dir }}/bin/"
+    dest: "{{ bin_dir }}/"
   when: aws_vault_check.rc == 1
 
 - name: Download cw
@@ -20,7 +20,8 @@
 - name: Install cw
   apt:
     deb: /home/{{ ansible_env.USER }}/Downloads/cw.deb
-  sudo: true
   when: cw_check.rc == 1
+  become: yes
+  become_method: sudo
 
 

@@ -1,5 +1,0 @@
----
-
-packer_version: 1.5.4
-packer_basename: packer_{{ packer_version }}_linux_amd64.zip
-packer_url: https://releases.hashicorp.com/packer/{{ packer_version }}/{{ packer_basename }}

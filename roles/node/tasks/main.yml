@@ -11,11 +11,14 @@
   args:
     chdir: "{{ home_dir }}/.nodenv"
 
-# - name: Add  {{ home_dir }}/.nodenv to $PATH
-#   lineinfile:
-#     path: "{{ home_dir }}/.bashrc"
-#     regexp: '^export .*\.nodenv/bin.*'
-#     line: export PATH="$HOME/.nodenv/bin:$PATH"
-
-- name: Set up nodenv in your shell
-  shell: "{{ home_dir }}/.nodenv/bin/nodenv init"
+- name: Add {{ home_dir }}/.nodenv to {{ home_dir }}/.bashrc
+  blockinfile:
+    path: "{{ home_dir }}/.bashrc"
+    mode: 0644
+    owner: "{{ user }}"
+    group: "{{ group }}"
+    marker: "# {mark} ANSIBLE MANAGED BLOCK nodenv"
+    create: yes
+    block: |
+      export PATH="$HOME/.nodenv/bin:$PATH"
+      eval "$(nodenv init -)"

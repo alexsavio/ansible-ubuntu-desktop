@@ -2,6 +2,8 @@
 
 - name : Install GVM
   shell: curl -s -S -L https://raw.githubusercontent.com/moovweb/gvm/master/binscripts/gvm-installer | bash -
+  args:
+    creates: "{{ home_dir}}/.gvm"
 
 - name : Change GVM rights
   file: 

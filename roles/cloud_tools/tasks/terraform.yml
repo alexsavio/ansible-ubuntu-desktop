@@ -12,6 +12,8 @@
     dest: "{{ home_dir }}/.tfenv"
     update: true
 
-
-git clone  ~/.tfenv
-echo 'export PATH="$HOME/.tfenv/bin:$PATH"' >> ~/.bash_profile
+- name: Add {{ home_dir }}/.tfenv to $PATH
+  lineinfile:
+    path: "{{ home_dir }}/.bashrc"
+    regexp: '^export .*\.tfenv/bin*'
+    line: export PATH=$HOME/.tfenv/bin:$PATH
