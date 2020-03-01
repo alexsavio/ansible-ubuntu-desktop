@@ -1,0 +1,19 @@
+---
+
+- name : Install GVM
+  shell: curl -s -S -L https://raw.githubusercontent.com/moovweb/gvm/master/binscripts/gvm-installer | bash -
+  args:
+    creates: "{{ home_dir}}/.gvm"
+
+- name : Change GVM rights
+  file: 
+    path: "{{ home_dir }}/.gvm/scripts/gvm"
+    mode: 0744
+
+- name: Install bison (GVM dependency)
+  apt:
+    name:
+    - bison
+    state: present
+  become: yes
+  become_method: sudo

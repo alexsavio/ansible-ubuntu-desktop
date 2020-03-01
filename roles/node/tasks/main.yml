@@ -1,0 +1,24 @@
+---
+
+- name: Clone the nodenv repository in {{ home_dir }}/.nodenv
+  git:
+    repo: https://github.com/nodenv/nodenv.git
+    dest: "{{ home_dir }}/.nodenv"
+    update: true
+
+- name: Try to compile the nodeenv dynamic bash extension to speed up nodenv
+  shell: src/configure && make -C src
+  args:
+    chdir: "{{ home_dir }}/.nodenv"
+
+- name: Add {{ home_dir }}/.nodenv to {{ home_dir }}/.bashrc
+  blockinfile:
+    path: "{{ home_dir }}/.bashrc"
+    mode: 0644
+    owner: "{{ user }}"
+    group: "{{ group }}"
+    marker: "# {mark} ANSIBLE MANAGED BLOCK nodenv"
+    create: yes
+    block: |
+      export PATH="$HOME/.nodenv/bin:$PATH"
+      eval "$(nodenv init -)"

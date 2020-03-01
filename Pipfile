@@ -1,0 +1,14 @@
+[[source]]
+url = "https://pypi.org/simple"
+verify_ssl = true
+name = "pypi"
+
+[packages]
+ansible = "==2.9.5"
+python-apt = "*"
+
+[dev-packages]
+python-semantic-release = "*"
+
+[scripts]
+playbook = "./playbook.yml -K"

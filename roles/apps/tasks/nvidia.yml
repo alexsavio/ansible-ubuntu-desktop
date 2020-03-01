@@ -1,0 +1,9 @@
+---
+
+- name: Install NVidia stuff
+  apt:
+    name:
+    - mate-optimus
+    state: present
+  become: yes
+  become_method: sudo

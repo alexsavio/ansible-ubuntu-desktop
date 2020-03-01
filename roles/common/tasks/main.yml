@@ -1,0 +1,23 @@
+---
+
+- include_tasks: apt-tools.yml
+  tags: apt
+
+- name: Set locale
+  locale_gen:
+    name: "{{ locale }}"
+    state: present
+
+- name: Create directories
+  file:
+    path: "{{ item }}"
+    state: directory
+    owner: "{{ user }}"
+    group: "{{ group }}"
+  loop:
+    - "{{ soft_dir }}"
+    - "{{ bin_dir }}"
+    - "{{ tmp_install_dir }}"
+    - "{{ projects_dir }}"
+  become: yes
+  become_method: sudo

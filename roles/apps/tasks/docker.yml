@@ -1,0 +1,120 @@
+---
+
+# - name: Add the Docker gpg signing key to Apt
+#   apt_key:
+#     url: https://download.docker.com/linux/ubuntu/gpg
+#     state: present
+#   become: yes
+#   become_method: sudo
+
+# - name: Add the Docker Apt repository
+#   apt_repository:
+#     repo: deb [arch=amd64] https://download.docker.com/linux/ubuntu {{ ansible_distribution_release }} stable
+#     state: present
+#     filename: docker
+#   become: yes
+#   become_method: sudo
+
+# - name: Install Docker
+#   apt:
+#     name:
+#     - pass
+#     - docker-ce
+#     - docker-ce-cli
+#     - containerd
+#     update_cache: yes
+#     state: present
+#   become: yes
+#   become_method: sudo
+
+- name: Install Docker from distribution packages
+  apt:
+    name:
+    - pass
+    - docker.io
+    update_cache: yes
+    state: present
+  become: yes
+  become_method: sudo
+
+- name: Ensure docker group exists
+  group:
+    name: docker
+    state: present
+  become: yes
+  become_method: sudo
+
+- name: Add the user {{ user }} to the docker group
+  user:
+    name: "{{ user }}"
+    group: docker
+  become: yes
+  become_method: sudo
+
+- set_fact:
+    dive_version: 0.9.2
+    docker_credentials_helper_version: 0.6.3
+
+- name: Install dive for docker
+  apt:
+    deb: https://github.com/wagoodman/dive/releases/download/v{{ dive_version }}/dive_{{ dive_version }}_linux_amd64.deb
+  become: yes
+  become_method: sudo
+
+- set_fact:
+    credentials_helper_path: "{{ home_dir }}/go/src/github.com/docker/docker-credential-helpers"
+
+- name: Clone the docker-credential-helpers repository
+  command: "go get github.com/docker/docker-credential-helpers@v{{ docker_credentials_helper_version }}"
+  args:
+    creates: "{{ credentials_helper_path }}"
+
+- name: Install build dependencies for docker-credential-helpers
+  apt:
+    name:
+    - libsecret-1-dev
+    state: present
+  become: yes
+  become_method: sudo
+
+- name: Compile docker-credential-helpers with pass
+  shell: make pass
+  args:
+    chdir: "{{ credentials_helper_path }}"
+
+- name: Create symbolic link to docker-credential-pass in {{ home_dir }}/bin
+  file:
+    src: "{{ credentials_helper_path }}/bin/docker-credential-pass"
+    dest: "{{ bin_dir }}/docker-credential-pass"
+    state: link
+
+- name: Get docker version
+  shell: "docker -v | cut -d ' ' -f 3 | cut -d ',' -f 1"
+  register: docker_version
+
+- name: Configure pass as credential storage for docker
+  blockinfile:
+    path: "{{ home_dir }}/.docker/config.json"
+    mode: 0644
+    owner: "{{ user }}"
+    group: "{{ group }}"
+    marker: "# {mark} ANSIBLE MANAGED BLOCK pyenv"
+    create: yes
+    block: |
+      {
+        "auths": {
+          "https://index.docker.io/v1/": {}
+        },
+        "HttpHeaders": {
+          "User-Agent": "Docker-Client/{{ docker_version.stdout }}(linux)"
+        },
+        "credsStore": "pass",
+        "credHelpers": {
+          "asia.gcr.io": "gcloud",
+          "eu.gcr.io": "gcloud",
+          "gcr.io": "gcloud",
+          "marketplace.gcr.io": "gcloud",
+          "staging-k8s.gcr.io": "gcloud",
+          "us.gcr.io": "gcloud"
+        }
+      }

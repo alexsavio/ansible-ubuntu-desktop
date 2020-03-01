@@ -1,0 +1,22 @@
+{
+    "[ansible]": {
+        "editor.detectIndentation": false,
+        "editor.tabSize": 2,
+        "editor.insertSpaces": true
+    },
+
+    "files.associations": {
+        "**/defaults/**/*.yml": "jinja-yaml",
+        "**/group_vars/**/*": "jinja-yaml",
+        "**/host_vars/**/*": "jinja-yaml",
+        "**/vars/**/*.yml": "jinja-yaml",
+        "**/tasks/**/*.yml": "ansible",
+        "**/handlers/*.yml": "ansible",
+        "**/meta/*.yml": "ansible",
+        "**/roles/**/*.yml": "ansible",
+        "**/playbooks/**/*.yml": "ansible",
+        "**/ansible/**/hosts": "ini",
+        "**/ansible/**/inventory": "ini",
+        "ansible.cfg": "ini"
+    }
+}

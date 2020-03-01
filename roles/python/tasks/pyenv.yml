@@ -1,0 +1,41 @@
+---
+
+- name: Fetch pyenv installer script
+  get_url:
+    url: https://github.com/pyenv/pyenv-installer/raw/master/bin/pyenv-installer
+    dest: "{{ home_dir }}/pyenv-installer"
+    mode: 0770
+
+- name: Run pyenv installer script
+  command: "bash pyenv-installer"
+  args:
+    chdir: "{{ home_dir }}"
+    creates: "{{ home_dir }}/.pyenv"
+
+- name: remote pyenv-installer script
+  file:
+    path: "{{ home_dir }}/pyenv-installer"
+    state: absent
+
+- set_fact:
+    pyenv_bin: "{{ home_dir }}/.pyenv/bin"
+
+- name: Add {{ pyenv_bin }} to {{ home_dir }}/.bashrc
+  blockinfile:
+    path: "{{ home_dir }}/.bashrc"
+    mode: 0644
+    owner: "{{ user }}"
+    group: "{{ group }}"
+    marker: "# {mark} ANSIBLE MANAGED BLOCK pyenv"
+    create: yes
+    block: |
+      export PATH="{{ pyenv_bin }}:$PATH"
+      eval "$(pyenv init -)"
+      eval "$(pyenv virtualenv-init -)"
+
+- name: Install Python {{ python_version }}
+  shell: |
+    eval "$({{pyenv_bin }}/pyenv init -)"
+    eval "$({{pyenv_bin }}/pyenv virtualenv-init -)"
+    {{ pyenv_bin }}/pyenv install {{ python_version }}
+    {{ pyenv_bin }}/pyenv global {{ python_version }}

@@ -1,0 +1,13 @@
+---
+
+- include_tasks: terraform.yml
+  tags: terraform
+
+- include_tasks: packer.yml
+  tags: packer
+
+- include_tasks: gcp.yml
+  tags: gcp
+
+- include_tasks: aws.yml
+  tags: aws
