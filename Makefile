@@ -19,3 +19,7 @@ version:
 tag:
 	@echo "Create git tag v$(version), if not present"
 	git rev-parse --verify v$(version) || (git tag v$(version) && git push --tags)
+
+release:
+	semantic-release version
+	semantic-release changelog >> CHANGELOG.md

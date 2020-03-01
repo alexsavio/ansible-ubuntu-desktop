@@ -1,0 +1,29 @@
+name: Publish Github Pages
+
+on:
+  push:
+    branches:
+      - master
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v2
+
+    - name: Install Python and pipenv
+      uses: actions/setup-python@v1
+      with:
+        python-version: '3.7'
+
+    - name: Install dependencies
+      run: make install
+
+    - name: Run semantic-release
+      run: make release
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_BOT_TOKEN }}
+
+    - name: Create git tag
+      run: make tag
