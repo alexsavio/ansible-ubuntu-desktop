@@ -5,7 +5,6 @@ name = "pypi"
 
 [packages]
 ansible = "==2.9.5"
-python-apt = "*"
 
 [dev-packages]
 python-semantic-release = "*"
