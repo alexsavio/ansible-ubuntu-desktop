@@ -68,6 +68,8 @@
     - net-tools
     - ssh-askpass-gnome
     - ssh-askpass
+    - mtp-tools
+    - mtr-tiny
     state: present
   become: yes
   become_method: sudo

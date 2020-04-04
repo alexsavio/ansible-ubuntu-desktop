@@ -1,0 +1,28 @@
+---
+
+- include_tasks: apt-tools.yml
+  tags: apt
+
+
+sudo nano /etc/udev/rules.d/10-wakeup.rules
+
+ACTION=="add", SUBSYSTEM=="usb", ATTRS{idVendor}=="062a", ATTRS{idProduct}=="4101" RUN+="/bin/sh -c 'echo enabled > /sys/bus/usb/devices/usb8/power/wakeup'"
+
+
+ - name: template in 90-smartarray-limitiosize.rules.j2
+   template:
+     src: 90-smartarray-limitiosize.rules.j2
+     dest: /etc/udev/rules.d/90-smartarray-limitiosize.rules
+     backup: yes
+   when: udev_smart_array_max_sectors
+
+
+ansible-ubuntu-desktop git/master*
+(ansible) ❯ lsusb
+Bus 002 Device 001: ID 1d6b:0003 Linux Foundation 3.0 root hub
+Bus 001 Device 005: ID 27c6:5395 HTMicroelectronics Goodix Fingerprint Device
+Bus 001 Device 004: ID 0cf3:e300 Qualcomm Atheros Communications
+Bus 001 Device 007: ID 046d:0826 Logitech, Inc. HD Webcam C525
+Bus 001 Device 006: ID 0c45:671d Microdia Integrated_Webcam_HD
+Bus 001 Device 002: ID 046d:c52b Logitech, Inc. Unifying Receiver
+Bus 001 Device 001: ID 1d6b:0002 Linux Foundation 2.0 root hub
