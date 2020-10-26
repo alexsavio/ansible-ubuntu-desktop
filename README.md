@@ -1,6 +1,6 @@
 # ansible-ubuntu-desktop
 
-Provisioner for my profesional/personal Ubuntu 19.04 Desktop.
+Provisioner for my profesional/personal Ubuntu 20.04 Desktop.
 
 ## Preparation
 
@@ -19,11 +19,7 @@ their values.
 ## Launch
 
 In order to Ansible find the python3-apt installation,
-one way of doing it is with:
-
-```bash
-export PYTHONPATH=/usr/lib/python3/dist-packages/
-```
+the Makefile downloads the .deb file and unpacks it into your Python environment.
 
 A `playbook` script entry is set in the Pipfile:
 
