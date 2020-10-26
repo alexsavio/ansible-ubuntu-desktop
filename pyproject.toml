@@ -16,7 +16,7 @@ python-semantic-release = "^7.3.0"
 requires = ["poetry-core>=1.0.0"]
 build-backend = "poetry.core.masonry.api"
 
-[semantic_release]
+[tool.semantic_release]
 minor_tag = ":sparkles:"
 fix_tag = ":nut_and_bolt:"
 patch_without_tag = "false"
