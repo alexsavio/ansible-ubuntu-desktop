@@ -21,3 +21,6 @@
 - include_tasks: github.yml
   tags: github
 
+- include_tasks: android.yml
+  tags: android
+

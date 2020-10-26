@@ -1,0 +1,10 @@
+---
+
+- name: Install scrcpy
+  apt:
+    name:
+    - scrcpy
+    update_cache: yes
+    state: present
+  become: yes
+  become_method: sudo
