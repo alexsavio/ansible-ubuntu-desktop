@@ -51,21 +51,32 @@
   become: yes
   become_method: sudo
 
-- set_fact:
-    dive_version: 0.9.2
-    docker_credentials_helper_version: 0.6.3
+- name: Get latest release from wagoodman/dive
+  community.general.github_release:
+    user: wagoodman
+    repo: dive
+    action: latest_release
+  register: dive_latest_version
 
-- name: Install dive for docker
+- name: Install dive {{ dive_latest_version.tag }}
   apt:
-    deb: https://github.com/wagoodman/dive/releases/download/v{{ dive_version }}/dive_{{ dive_version }}_linux_amd64.deb
+    deb: https://github.com/wagoodman/dive/releases/download/{{ dive_latest_version.tag }}/dive_{{ dive_latest_version.tag | regex_replace('^v', '') }}_linux_amd64.deb
+    force: yes
   become: yes
   become_method: sudo
+
+- name: Get latest release from docker/docker-credential-helpers
+  community.general.github_release:
+    user: docker
+    repo: docker-credential-helpers
+    action: latest_release
+  register: credshelper_latest_version
 
 - set_fact:
     credentials_helper_path: "{{ home_dir }}/go/src/github.com/docker/docker-credential-helpers"
 
 - name: Clone the docker-credential-helpers repository
-  command: "go get github.com/docker/docker-credential-helpers@v{{ docker_credentials_helper_version }}"
+  command: go get github.com/docker/docker-credential-helpers@{{ credshelper_latest_version.tag }}
   args:
     creates: "{{ credentials_helper_path }}"
 

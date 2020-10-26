@@ -18,5 +18,3 @@
 - include_tasks: nvidia.yml
   tags: nvidia
 
-- include_tasks: docker.yml
-  tags: docker
