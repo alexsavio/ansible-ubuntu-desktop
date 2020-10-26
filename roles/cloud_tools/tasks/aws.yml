@@ -1,21 +1,48 @@
 ---
 
-- name:
-  pip:
-    name:
-      - awscli
+# - name:
+#   pip:
+#     name:
+#       - awscli
 
-- set_fact:
-    aws_vault_version: 5.3.2
-    cw_version: 3.2.3
+# - name: Download aws-vault
+#   get_url:
+#     url: https://github.com/99designs/aws-vault/releases/download/v{{ aws_vault_version }}/aws-vault-linux-amd64
+#     dest: "{{ bin_dir }}/aws-vault"
 
-- name: Download aws-vault
+- name: Extract awscli-exe-linux-x86_64.zip into {{ downloads_dir }}
+  unarchive:
+    src: https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip
+    dest: "{{ downloads_dir }}"
+    remote_src: yes
+
+- name: Install AWS CLI
+  command: "{{ downloads_dir }}/aws/install -i {{ bin_dir }}/aws-cli -b {{ bin_dir }}"
+  args:
+    creates: "{{ bin_dir }}/aws-cli"
+
+- name: Get latest release from 99designs/aws-vault
+  community.general.github_release:
+    user: 99designs
+    repo: aws-vault
+    action: latest_release
+  register: aws_vault_latest_version
+
+- name: Download aws-vault {{ aws_vault_latest_version.tag }}
   get_url:
-    url: https://github.com/99designs/aws-vault/releases/download/v{{ aws_vault_version }}/aws-vault-linux-amd64
+    url: https://github.com/99designs/aws-vault/releases/download/{{ aws_vault_latest_version.tag }}/aws-vault-linux-amd64
     dest: "{{ bin_dir }}/aws-vault"
 
-- name: Install lucagrulla/cw
+- name: Get latest release from lucagrulla/cw
+  community.general.github_release:
+    user: lucagrulla
+    repo: cw
+    action: latest_release
+  register: cw_latest_version
+
+- name: Install lucagrulla/cw {{ cw_latest_version.tag }}
   apt:
-    deb: https://github.com/lucagrulla/cw/releases/download/v{{ cw_version }}/cw_amd64.deb
+    deb: https://github.com/lucagrulla/cw/releases/download/{{ cw_latest_version.tag }}/cw_amd64.deb
+    force: yes
   become: yes
   become_method: sudo
