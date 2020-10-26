@@ -1,4 +1,5 @@
 ---
 
+# repository and branch where your dotfiles are
 homeschick_dotfiles: alexsavio/dotfiles
 dotfiles_branch: xps
