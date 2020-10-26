@@ -1,0 +1,8 @@
+---
+
+- name: Install latest Zoom
+  apt:
+    deb: https://zoom.us/client/latest/zoom_amd64.deb
+    force: yes
+  become: yes
+  become_method: sudo

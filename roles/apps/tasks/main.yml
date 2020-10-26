@@ -27,3 +27,5 @@
 - include_tasks: 1password.yml
   tags: 1password
 
+- include_tasks: zoom.yml
+  tags: zoom
