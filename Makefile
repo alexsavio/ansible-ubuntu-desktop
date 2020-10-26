@@ -30,7 +30,7 @@ install:: install-build python-apt
 install::
 	ansible-galaxy collection install -r requirements.yml
 
-install-ci::
+install-ci:: install-build
 	poetry install --dev-only
 
 clean: clean-ansible
