@@ -24,3 +24,6 @@
 - include_tasks: android.yml
   tags: android
 
+- include_tasks: 1password.yml
+  tags: 1password
+
