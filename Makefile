@@ -25,13 +25,13 @@ install-build::
 	python -m pip install -U pip setuptools poetry
 
 install:: install-build python-apt
-	poetry install
+	poetry install --no-dev
 
 install::
 	ansible-galaxy collection install -r requirements.yml
 
 install-ci:: install-build
-	poetry install --dev-only
+	poetry install
 
 clean: clean-ansible
 
