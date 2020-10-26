@@ -21,14 +21,17 @@ pyenv:
 	pyenv local ansible
 	pyenv activate ansible
 
-install::
+install-build::
 	python -m pip install -U pip setuptools poetry
 
-install:: python-apt
+install:: install-build python-apt
 	poetry install
 
 install::
 	ansible-galaxy collection install -r requirements.yml
+
+install-ci::
+	poetry install --dev-only
 
 clean: clean-ansible
 
