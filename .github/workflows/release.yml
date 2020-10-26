@@ -21,7 +21,7 @@ jobs:
       run: make install-ci
 
     - name: Run semantic-release
-      run: make release
+      run: poetry run make release
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_BOT_TOKEN }}
 
