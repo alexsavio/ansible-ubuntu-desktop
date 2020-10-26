@@ -68,3 +68,4 @@ devdoc/
 vault-pass.txt
 .ansible_cache/
 roles/vpns
+*.deb

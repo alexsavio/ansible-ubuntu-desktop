@@ -2,19 +2,31 @@
 
 Provisioner for my profesional/personal Ubuntu 19.04 Desktop.
 
+## Preparation
 
-# Preparation
+Activate your Python environment, and then:
 
 ```bash
-sudo apt install python3-apt
-export PATH=$PATH:$HOME/.local/bin
 make install
 ```
 
-# Launch
+## Customize
+
+Remember to create a new set of group variables in group_vars.
+You can copy the file in: `group_vars/laptops/xps15/vars.yml` and replace
+their values.
+
+## Launch
+
+In order to Ansible find the python3-apt installation,
+one way of doing it is with:
+
+```bash
+export PYTHONPATH=/usr/lib/python3/dist-packages/
+```
 
 A `playbook` script entry is set in the Pipfile:
 
 ```bash
-pipenv run playbook --extra-vars '@group_vars/laptops/xps15/vars.yml'
+ansible-playbook -K --extra-vars '@group_vars/laptops/xps15/vars.yml' playbook.yml
 ```
