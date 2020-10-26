@@ -12,8 +12,8 @@
 - include_tasks: mega.yml
   tags: mega
 
-# - include_tasks: boostnote.yml
-#   tags: boostnote
+- include_tasks: boostnote.yml
+  tags: boostnote
 
 - include_tasks: nvidia.yml
   tags: nvidia
