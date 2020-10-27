@@ -9,11 +9,12 @@ indent_style = space
 indent_size = 4
 
 [*.sh]
-indent_style = space
 indent_size = 4
 
-[{*.json,*.yml}]
-indent_style = space
+[*.py]
+indent_size = 4
+
+[*.{json,yml,yaml}]
 indent_size = 2
 
 [Makefile]
