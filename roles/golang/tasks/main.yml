@@ -6,7 +6,7 @@
     creates: "{{ home_dir}}/.gvm"
 
 - name : Change GVM rights
-  file: 
+  file:
     path: "{{ home_dir }}/.gvm/scripts/gvm"
     mode: 0744
 
