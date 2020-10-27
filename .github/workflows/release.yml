@@ -15,6 +15,10 @@ jobs:
       with:
         fetch-depth: 0
 
+    - uses: ouzi-dev/commit-status-updater@v1.1.0
+      with:
+        status: "success"
+
     # - name: Install Python and pipenv
     #   uses: actions/setup-python@v1
     #   with:
