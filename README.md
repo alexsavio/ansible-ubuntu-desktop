@@ -7,7 +7,7 @@ Provisioner for my profesional/personal Ubuntu 20.04 Desktop.
 Activate your Python environment, and then:
 
 ```bash
-make install
+make install-dev
 ```
 
 ## Customize

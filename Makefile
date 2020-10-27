@@ -1,14 +1,4 @@
-version-var := "version = "
-version-string := $(shell grep $(version-var) version.py)
-version := $(subst version = ,,$(version-string))
-
-# install::
-# 	python3 -m pip install -U pip pipenv setuptools
-# 	pipenv --three --site-packages
-# 	pipenv install --dev
-
-# install::
-# 	pipenv run ansible-galaxy collection install -r requirements.yml
+version := $(shell python -c 'import version; print(version.__version__)')
 
 python-apt:
 	wget -c http://de.archive.ubuntu.com/ubuntu/pool/main/p/python-apt/python3-apt_2.0.0_amd64.deb
@@ -30,6 +20,9 @@ install:: install-build python-apt
 install::
 	ansible-galaxy collection install -r requirements.yml
 
+install-dev:: install
+	pre-commit install
+
 install-ci:: install-build
 	poetry install
 
@@ -46,6 +39,11 @@ tag:
 	@echo "Create git tag v$(version), if not present"
 	git rev-parse --verify v$(version) || (git tag v$(version) && git push --tags)
 
-release:
+release::
 	semantic-release version
-	semantic-release changelog >> CHANGELOG.md
+
+release::
+	poetry version v$(version)
+
+release::
+	semantic-release publish
