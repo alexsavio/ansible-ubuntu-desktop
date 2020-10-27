@@ -1,13 +1,13 @@
 ---
 
-- name: Add the Google Cloud gpg signing key to Apt
+- name: gcp | Add the Google Cloud gpg signing key to Apt
   apt_key:
     url: https://packages.cloud.google.com/apt/doc/apt-key.gpg
     state: present
   become: yes
   become_method: sudo
 
-- name: Add the Google Cloud Apt repository
+- name: gcp | Add the Google Cloud Apt repository
   apt_repository:
     repo: deb http://packages.cloud.google.com/apt cloud-sdk main
     state: present
@@ -15,7 +15,7 @@
   become: yes
   become_method: sudo
 
-- name: Install Google Cloud SDK
+- name: gcp | Install Google Cloud SDK
   apt:
     name:
     - google-cloud-sdk

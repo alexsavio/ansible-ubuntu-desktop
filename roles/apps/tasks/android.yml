@@ -1,6 +1,6 @@
 ---
 
-- name: Install scrcpy
+- name: android | Install scrcpy
   apt:
     name:
     - scrcpy

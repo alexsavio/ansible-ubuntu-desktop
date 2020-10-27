@@ -1,13 +1,13 @@
 ---
 
-- name: Add Etcher apt key
+- name: etcher | Add apt key
   apt_key:
     keyserver: keyserver.ubuntu.com
     id: 379CE192D401AB61
   become: yes
   become_method: sudo
 
-- name: Add Etcher apt repository
+- name: etcher | Add apt repository
   apt_repository:
     repo: deb https://deb.etcher.io stable etcher
     filename: balena_etcher
@@ -15,7 +15,7 @@
   become: yes
   become_method: sudo
 
-- name: Install Balena Etcher
+- name: etcher | Install
   apt:
     name:
     - balena-etcher-electron
@@ -24,21 +24,21 @@
   become: yes
   become_method: sudo
 
-- name: Get latest release from balena-io/etcher
-  community.general.github_release:
-    user: balena-io
-    repo: etcher
-    action: latest_release
-  register: etcher_latest_version
+# - name: etcher | Get latest release from balena-io/etcher
+#   community.general.github_release:
+#     user: balena-io
+#     repo: etcher
+#     action: latest_release
+#   register: etcher_latest_version
 
-# - name: Unarchive the Balena Etcher {{ etcher_latest_version.tag }} installer package
+# - name: etcher | Unarchive the Balena Etcher {{ etcher_latest_version.tag }} installer package
 #   unarchive:
 #     url: https://github.com/balena-io/etcher/releases/download/{{ etcher_latest_version.tag }}/balena-etcher-electron-{{ etcher_latest_version.tag | regex_replace('^v', '') }}-linux-x64.zip
 #     dest: "{{ downloads_dir }}/balena-etcher-electron-{{ etcher_version }}-linux-x64"
 #     remote_src: yes
 #   when: "'64' in ansible_architecture and 'Linux' == ansible_system"
 
-# - name: Run Balena Etcher installer
+# - name: etcher | Run Balena Etcher installer
 #   command: "bash pyenv-installer"
 #   args:
 #     chdir: "{{ home_dir }}"
@@ -47,23 +47,23 @@
 # - set_fact:
 #     etcher_version: 1.5.109
 
-# - name: Download Balena Etcher installer package for Linux amd64
+# - name: etcher | Download Balena Etcher installer package for Linux amd64
 #   get_url:
 #     url: https://github.com/balena-io/etcher/releases/download/v{{ etcher_version }}/balena-etcher-electron-{{ etcher_version }}-linux-x64.zip
 #     dest: "{{ downloads_dir }}/balena-etcher-electron-{{ etcher_version }}-linux-x64.zip"
 #   when: "'64' in ansible_architecture and 'Linux' == ansible_system"
 
-# - name: Unzip Balena Etcher installer archive
+# - name: etcher | Unzip Balena Etcher installer archive
 #   zip:
 #     path: "{{ downloads_dir }}/balena-etcher-electron-{{ etcher_version }}-linux-x64.zip"
 #     mode: 0770
 
-# - name: Set executable flag in Balena Etcher installer file
+# - name: etcher | Set executable flag in Balena Etcher installer file
 #   file:
 #     path: "{{ downloads_dir }}/balena-etcher-electron-{{ etcher_version }}-linux-x64.zip"
 #     mode: 0770
 
-# - name: Run Balena Etcher installer
+# - name: etcher | Run Balena Etcher installer
 #   command: "bash pyenv-installer"
 #   args:
 #     chdir: "{{ home_dir }}"

@@ -1,13 +1,13 @@
 ---
 
-# - name: Add the Docker gpg signing key to Apt
+# - name: docker | Add the Docker gpg signing key to Apt
 #   apt_key:
 #     url: https://download.docker.com/linux/ubuntu/gpg
 #     state: present
 #   become: yes
 #   become_method: sudo
 
-# - name: Add the Docker Apt repository
+# - name: docker | Add the Docker Apt repository
 #   apt_repository:
 #     repo: deb [arch=amd64] https://download.docker.com/linux/ubuntu {{ ansible_distribution_release }} stable
 #     state: present
@@ -15,7 +15,7 @@
 #   become: yes
 #   become_method: sudo
 
-# - name: Install Docker
+# - name: docker | Install Docker
 #   apt:
 #     name:
 #     - pass
@@ -27,7 +27,7 @@
 #   become: yes
 #   become_method: sudo
 
-- name: Install Docker from distribution packages
+- name: docker | Install Docker from distribution packages
   apt:
     name:
     - pass
@@ -37,35 +37,35 @@
   become: yes
   become_method: sudo
 
-- name: Ensure docker group exists
+- name: docker | Ensure docker group exists
   group:
     name: docker
     state: present
   become: yes
   become_method: sudo
 
-- name: Add the user {{ user }} to the docker group
+- name: docker | Add the user {{ user }} to the docker group
   user:
     name: "{{ user }}"
     group: docker
   become: yes
   become_method: sudo
 
-- name: Get latest release from wagoodman/dive
+- name: docker | Get latest release from wagoodman/dive
   community.general.github_release:
     user: wagoodman
     repo: dive
     action: latest_release
   register: dive_latest_version
 
-- name: Install dive {{ dive_latest_version.tag }}
+- name: docker | Install dive {{ dive_latest_version.tag }}
   apt:
     deb: https://github.com/wagoodman/dive/releases/download/{{ dive_latest_version.tag }}/dive_{{ dive_latest_version.tag | regex_replace('^v', '') }}_linux_amd64.deb
     force: yes
   become: yes
   become_method: sudo
 
-- name: Get latest release from docker/docker-credential-helpers
+- name: docker | Get latest release from docker/docker-credential-helpers
   community.general.github_release:
     user: docker
     repo: docker-credential-helpers
@@ -75,12 +75,12 @@
 - set_fact:
     credentials_helper_path: "{{ home_dir }}/go/src/github.com/docker/docker-credential-helpers"
 
-- name: Clone the docker-credential-helpers repository
+- name: docker | Clone the docker-credential-helpers repository
   command: go get github.com/docker/docker-credential-helpers@{{ credshelper_latest_version.tag }}
   args:
     creates: "{{ credentials_helper_path }}"
 
-- name: Install build dependencies for docker-credential-helpers
+- name: docker | Install build dependencies for docker-credential-helpers
   apt:
     name:
     - libsecret-1-dev
@@ -88,22 +88,22 @@
   become: yes
   become_method: sudo
 
-- name: Compile docker-credential-helpers with pass
+- name: docker | Compile docker-credential-helpers with pass
   shell: make pass
   args:
     chdir: "{{ credentials_helper_path }}"
 
-- name: Create symbolic link to docker-credential-pass in {{ home_dir }}/bin
+- name: docker | Create symbolic link to docker-credential-pass in {{ home_dir }}/bin
   file:
     src: "{{ credentials_helper_path }}/bin/docker-credential-pass"
     dest: "{{ bin_dir }}/docker-credential-pass"
     state: link
 
-- name: Get docker version
+- name: docker | Get docker version
   shell: "docker -v | cut -d ' ' -f 3 | cut -d ',' -f 1"
   register: docker_version
 
-- name: Configure pass as credential storage for docker
+- name: docker | Configure pass as credential storage for docker
   blockinfile:
     path: "{{ home_dir }}/.docker/config.json"
     mode: 0644

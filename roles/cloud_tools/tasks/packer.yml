@@ -3,7 +3,7 @@
 # - set_fact:
 #     packer_version: 1.5.4
 
-# - name: Create directory for packer
+# - name: packer | Create directory for packer
 #   file:
 #     path: "{{ home_dir }}/software/packer"
 #     state: directory
@@ -12,26 +12,26 @@
 #   become: yes
 #   become_method: sudo
 
-# - name: Unarchive packer {{ packer_version }} package
+# - name: packer | Unarchive packer {{ packer_version }} package
 #   unarchive:
 #     src: https://releases.hashicorp.com/packer/{{ packer_version }}/packer_{{ packer_version }}_linux_amd64.zip
 #     dest: "{{ home_dir }}/software/packer"
 #     remote_src: yes
 
-# - name: Create symbolic link to packer in {{ home_dir }}/bin
+# - name: packer | Create symbolic link to packer in {{ home_dir }}/bin
 #   file:
 #     src: "{{ home_dir }}/software/packer/packer"
 #     dest: "{{ bin_dir }}/packer"
 #     state: link
 
-- name: Add repository apt key
+- name: packer | Add repository apt key
   apt_key:
     keyserver: https://apt.releases.hashicorp.com/gpg
     state: present
   become: yes
   become_method: sudo
 
-- name: Add apt repository
+- name: packer | Add apt repository
   apt_repository:
     repo: deb [arch=amd64] https://apt.releases.hashicorp.com {{ ansible_distribution_release }} main
     filename: hashicorp_packer
@@ -39,7 +39,7 @@
   become: yes
   become_method: sudo
 
-- name: Install
+- name: packer | Install
   apt:
     name:
     - packer

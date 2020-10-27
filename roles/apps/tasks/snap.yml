@@ -1,6 +1,6 @@
 ---
 
-- name: Install snap applications
+- name: snap | Install applications
   snap:
     name:
       - spotify
@@ -11,7 +11,7 @@
   become: yes
   become_method: sudo
 
-- name: Install snap classic applications
+- name: snap | Install classic applications
   snap:
     name:
       - skype

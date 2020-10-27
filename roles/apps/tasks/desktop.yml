@@ -1,6 +1,6 @@
 ---
 
-- name: Install Desktop apps APT packages
+- name: desktop | Install Desktop apps APT packages
   apt:
     name:
     - tilix
@@ -22,7 +22,7 @@
   become: yes
   become_method: sudo
 
-- name: Install energy related packages
+- name: desktop | Install energy related packages
   apt:
     name:
     - powernap
@@ -31,7 +31,7 @@
   become: yes
   become_method: sudo
 
-- name: Install torrent related apps
+- name: desktop | Install torrent related apps
   apt:
     name:
     - transmission-remote-gtk
@@ -40,7 +40,7 @@
   become: yes
   become_method: sudo
 
-- name: Install LateX related apps
+- name: desktop | Install LateX related apps
   apt:
     name:
     - cm-super

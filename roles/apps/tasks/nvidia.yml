@@ -1,6 +1,6 @@
 ---
 
-- name: Install NVidia stuff
+- name: nvidia | Install Optimus tool
   apt:
     name:
     - mate-optimus
