@@ -1,7 +1,7 @@
 ---
 
-# - include_tasks: docker.yml
-#   tags: docker
+- include_tasks: docker.yml
+  tags: docker
 
 - include_tasks: podman.yml
   tags: podman
