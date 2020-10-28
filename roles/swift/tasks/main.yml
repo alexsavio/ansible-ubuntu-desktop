@@ -1,0 +1,63 @@
+---
+
+# https://www.raywenderlich.com/8325890-a-complete-guide-to-swift-development-on-linux
+
+- name: swift | Install dependencies
+  apt:
+    name:
+    - curl
+    - clang
+    - libicu-dev
+    - git
+    - libatomic1
+    - libicu66
+    - libxml2
+    - libcurl4
+    - zlib1g-dev
+    - zlib1g
+    - libbsd0
+    - tzdata
+    - libssl-dev
+    - libsqlite3-dev
+    - libblocksruntime-dev
+    - libncurses5-dev
+    - libdispatch-dev
+    - binutils
+    - gnupg2
+    - libc6-dev
+    - libedit2
+    - libgcc-9-dev
+    - libpython2.7
+    - libsqlite3-0
+    - libstdc++-9-dev
+    - libz3-dev
+    - pkg-config
+  become: yes
+  become_method: sudo
+
+- name: swift | Get latest release from apple/swift
+  community.general.github_release:
+    user: apple
+    repo: swift
+    action: latest_release
+  register: swift_latest_version
+
+- set_fact:
+    swift_latest_version: "{{ swift_latest_version.tag | regex_replace('^swift-', '') | regex_replace('-RELEASE$', '') }}"
+    swift_dir: "{{ home_dir }}/swift"
+
+- name: swift | Create destination folder
+  file:
+    path: "{{ item }}"
+    state: directory
+    owner: "{{ user }}"
+    group: "{{ group }}"
+  loop:
+    - "{{ swift_dir }}"
+
+- name: swift | Unarchive the toolchain
+  unarchive:
+    src: https://swift.org/builds/swift-{{ swift_latest_version }}-release/ubuntu{{ ansible_distribution_version | regex_replace('\.', '') }}/swift-{{ swift_latest_version }}-RELEASE/swift-{{ swift_latest_version }}-RELEASE-ubuntu{{ ansible_distribution_version }}.tar.gz
+    dest: "{{ swift_dir }}"
+    remote_src: yes
+    creates: "{{ swift_dir }}/swift-{{ swift_latest_version }}-RELEASE-ubuntu{{ ansible_distribution_version }}/usr"
