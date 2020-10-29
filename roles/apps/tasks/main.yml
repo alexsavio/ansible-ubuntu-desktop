@@ -1,31 +1,31 @@
 ---
 
-- include_tasks: desktop.yml
+- import_tasks: desktop.yml
   tags: desktop
 
-- include_tasks: snap.yml
+- import_tasks: snap.yml
   tags: snap
 
-- include_tasks: etcher.yml
+- import_tasks: etcher.yml
   tags: etcher
 
-- include_tasks: mega.yml
+- import_tasks: mega.yml
   tags: mega
 
-- include_tasks: boostnote.yml
+- import_tasks: boostnote.yml
   tags: boostnote
 
-- include_tasks: nvidia.yml
+- import_tasks: nvidia.yml
   tags: nvidia
 
-- include_tasks: github.yml
+- import_tasks: github.yml
   tags: github
 
-- include_tasks: android.yml
+- import_tasks: android.yml
   tags: android
 
-- include_tasks: 1password.yml
+- import_tasks: 1password.yml
   tags: 1password
 
-- include_tasks: zoom.yml
+- import_tasks: zoom.yml
   tags: zoom

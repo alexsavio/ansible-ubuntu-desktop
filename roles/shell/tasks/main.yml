@@ -8,10 +8,10 @@
   become: yes
   become_method: sudo
 
-- include_tasks: ohmyzsh.yml
+- import_tasks: ohmyzsh.yml
   tags: ohmyzsh
 
-- include_tasks: homeschick.yml
+- import_tasks: homeschick.yml
   tags: homeschick
 
 - name: Change the default shell for {{ user }}

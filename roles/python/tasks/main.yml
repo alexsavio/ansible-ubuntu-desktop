@@ -1,7 +1,7 @@
 ---
 
-- include_tasks: build_dependencies.yml
+- import_tasks: build_dependencies.yml
   tags: pyenv
 
-- include_tasks: pyenv.yml
+- import_tasks: pyenv.yml
   tags: pyenv

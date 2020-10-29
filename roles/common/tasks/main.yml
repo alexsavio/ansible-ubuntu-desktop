@@ -1,6 +1,6 @@
 ---
 
-- include_tasks: apt-tools.yml
+- import_tasks: apt-tools.yml
   tags: apt
 
 - name: Set locale
