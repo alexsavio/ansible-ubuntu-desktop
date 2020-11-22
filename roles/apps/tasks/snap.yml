@@ -7,6 +7,8 @@
       - telegram-desktop
       - mailspring
       - insomnia
+      - bitwarden
+      - bw
       - teams-for-linux
   become: yes
   become_method: sudo
