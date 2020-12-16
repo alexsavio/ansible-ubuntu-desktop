@@ -9,20 +9,11 @@
   register: rustup_toolchain
   changed_when: '"installed" in rustup_toolchain.stdout'
 
-- name: rust | Install Cargo
+- name: rust | Install items from {{ cargo_items | string }}
   shell: "{{ home_dir }}/.cargo/bin/cargo install {{ item.name }} | cat"
   with_items: "{{ cargo_items }}"
-  register: cargo_result
   changed_when: false
   when: item.name is defined
-
-- name: rust | Verify Cargo
-  shell: "{{ home_dir }}/.cargo/bin/cargo"
-  with_items: "{{ cargo_result.results }}"
-  changed_when: false
-  failed_when:
-    - ("Add --force to overwrite" not in item.stderr) and
-      ("Finished" not in item.stderr)
 
 - name: rust | Verify Binary installation
   stat:
