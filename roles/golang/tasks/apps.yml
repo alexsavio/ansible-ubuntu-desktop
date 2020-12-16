@@ -1,0 +1,9 @@
+---
+
+# go get github.com/arsham/figurine
+# go get github.com/arsham/rainbow
+# go get github.com/hairyhenderson/gomplate/v3/cmd/gomplate
+# go get github.com/segmentio/chamber
+
+# go get github.com/kahing/goofys
+# go install github.com/kahing/goofys
