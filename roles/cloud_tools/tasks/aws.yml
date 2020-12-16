@@ -1,15 +1,5 @@
 ---
 
-# - name: aws |
-#   pip:
-#     name:
-#       - awscli
-
-# - name: aws | Download aws-vault
-#   get_url:
-#     url: https://github.com/99designs/aws-vault/releases/download/v{{ aws_vault_version }}/aws-vault-linux-amd64
-#     dest: "{{ bin_dir }}/aws-vault"
-
 - name: aws | Extract awscli-exe-linux-x86_64.zip into {{ downloads_dir }}
   unarchive:
     src: https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip

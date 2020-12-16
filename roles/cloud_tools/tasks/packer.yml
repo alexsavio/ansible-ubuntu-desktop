@@ -1,29 +1,5 @@
 ---
 
-# - set_fact:
-#     packer_version: 1.5.4
-
-# - name: packer | Create directory for packer
-#   file:
-#     path: "{{ home_dir }}/software/packer"
-#     state: directory
-#     owner: "{{ user }}"
-#     group: "{{ group }}"
-#   become: yes
-#   become_method: sudo
-
-# - name: packer | Unarchive packer {{ packer_version }} package
-#   unarchive:
-#     src: https://releases.hashicorp.com/packer/{{ packer_version }}/packer_{{ packer_version }}_linux_amd64.zip
-#     dest: "{{ home_dir }}/software/packer"
-#     remote_src: yes
-
-# - name: packer | Create symbolic link to packer in {{ home_dir }}/bin
-#   file:
-#     src: "{{ home_dir }}/software/packer/packer"
-#     dest: "{{ bin_dir }}/packer"
-#     state: link
-
 - name: packer | Add repository apt key
   apt_key:
     url: https://apt.releases.hashicorp.com/gpg

@@ -1,20 +1,5 @@
 ---
 
-# - name: azure | Download Microsoft GPG key file
-#   get_url:
-#     url: https://packages.microsoft.com/keys/microsoft.asc
-#     dest: "{{ home_dir }}/microsoft.asc"
-
-# - name: azure | De-armor the GPG key
-#   apt_key:
-#     data: "{{ lookup('file', 'apt.asc') }}"
-#     state: present
-
-# - name: azure | Install the key
-#   command: "cat {{ home_dir }}/microsoft.asc | gpg --dearmor | tee /etc/apt/trusted.gpg.d/microsoft.gpg > /dev/null"
-#   become: yes
-#   become_method: sudo
-
 - name: azure | Install the Microsoft GPG key file
   apt_key:
     url: https://packages.microsoft.com/keys/microsoft.asc

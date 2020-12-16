@@ -1,19 +1,5 @@
 ---
 
-# - name: aws | Get latest release from hashicorp/terraform
-#   community.general.github_release:
-#     user: hashicorp
-#     repo: terraform
-#     action: latest_release
-#   register: terraform_latest_version
-
-# - name: terraform | Unarchive terraform {{ terraform_latest_version.tag }} in {{ bin_dir }}
-#   unarchive:
-#     src: https://releases.hashicorp.com/terraform/{{ terraform_latest_version.tag | regex_replace('^v', '') }}/terraform_{{ terraform_latest_version.tag | regex_replace('^v', '') }}_linux_amd64.zip
-#     dest: "{{ bin_dir }}"
-#     remote_src: yes
-#   when: "'64' in ansible_architecture and 'Linux' == ansible_system"
-
 - name: terraform | Clone the tfenv repository in {{ home_dir }}/.tfenv
   git:
     repo: https://github.com/tfutils/tfenv.git
