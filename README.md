@@ -1,6 +1,6 @@
 # ansible-ubuntu-desktop
 
-Provisioner for my profesional/personal Ubuntu 20.04 Desktop.
+Provisioner for my profesional/personal Ubuntu 20.10 Desktop.
 
 ## Preparation
 
