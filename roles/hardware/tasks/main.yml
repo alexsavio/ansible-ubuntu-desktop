@@ -4,5 +4,5 @@
 # - import_tasks: fingerprint-reader.yml
 #   tags: fingerprint-reader
 
-- import_tasks: trackpad-gestures.yml
-  tags: trackpad-gestures
+# - import_tasks: trackpad-gestures.yml
+#   tags: trackpad-gestures
