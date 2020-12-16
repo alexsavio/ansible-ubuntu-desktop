@@ -1,32 +1,5 @@
 ---
 
-- name: rust | Install
-  shell: curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y
-  changed_when: false
-
-- name: rust | Install toolchain
-  shell: "{{ home_dir }}/.cargo/bin/rustup toolchain install {{ rust_version }}"
-  register: rustup_toolchain
-  changed_when: '"installed" in rustup_toolchain.stdout'
+- import_tasks: install.yml
   when: rust_version is defined
-
-- name: rust | Install Cargo
-  shell: "{{ home_dir }}/.cargo/bin/cargo install {{ item.name }} | cat"
-  with_items: "{{ cargo_items }}"
-  register: cargo_result
-  changed_when: false
-  when: item.name is defined
-
-- name: rust | Verify Cargo
-  shell: "{{ home_dir }}/.cargo/bin/cargo"
-  with_items: "{{ cargo_result.results }}"
-  changed_when: false
-  failed_when:
-    - ("Add --force to overwrite" not in item.stderr) and
-      ("Finished" not in item.stderr)
-
-- name: rust | Verify Binary installation
-  stat:
-    path: "{{ home_dir }}/.cargo/bin/{{ item.binary }}"
-  with_items: "{{ cargo_items }}"
-  when: item.binary is defined
+  tags: rust
