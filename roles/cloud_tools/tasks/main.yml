@@ -11,3 +11,6 @@
 
 - import_tasks: aws.yml
   tags: aws
+
+- import_tasks: azure.yml
+  tags: azure
