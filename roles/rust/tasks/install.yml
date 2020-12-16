@@ -7,7 +7,7 @@
   shell: "{{ home_dir }}/.cargo/bin/rustup toolchain install {{ rust_version }}"
 
 - name: rust | Install software from the list of cargo items
-  shell: "{{ home_dir }}/.cargo/bin/cargo install {{ item.name }}"
+  shell: "{{ home_dir }}/.cargo/bin/cargo install {{ item }}"
   with_items: "{{ cargo_items }}"
 
 - name: rust | Verify cargo items installation
