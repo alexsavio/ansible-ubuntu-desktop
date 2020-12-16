@@ -65,20 +65,28 @@
   become: yes
   become_method: sudo
 
-# - name: docker | Get latest release from docker/docker-credential-helpers
-#   community.general.github_release:
-#     user: docker
-#     repo: docker-credential-helpers
-#     action: latest_release
-#   register: credshelper_latest_version
+- name: docker | Get latest release from docker/docker-credential-helpers
+  community.general.github_release:
+    user: docker
+    repo: docker-credential-helpers
+    action: latest_release
+  register: credshelper_latest_version
 
 - set_fact:
-    credentials_helper_path: "{{ home_dir }}/go/src/github.com/docker/docker-credential-helpers"
+    credentials_helper_path: "{{ soft_dir }}/docker-credential-helpers"
 
 - name: docker | Clone the docker-credential-helpers repository
-  command: go get github.com/docker/docker-credential-helpers
+  git:
+    repo: https:// github.com/docker/docker-credential-helpers
+    dest: "{{ soft_dir }}/docker-credential-helpers"
+    version: "{{ credshelper_latest_version.tag }}"
   args:
     creates: "{{ credentials_helper_path }}"
+
+# - name: docker | Clone the docker-credential-helpers repository
+#   command: go get github.com/docker/docker-credential-helpers
+#   args:
+#     creates: "{{ credentials_helper_path }}"
 
 - name: docker | Install build dependencies for docker-credential-helpers
   apt:
