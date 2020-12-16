@@ -80,8 +80,6 @@
     repo: https:// github.com/docker/docker-credential-helpers
     dest: "{{ soft_dir }}/docker-credential-helpers"
     version: "{{ credshelper_latest_version.tag }}"
-  args:
-    creates: "{{ credentials_helper_path }}"
 
 # - name: docker | Clone the docker-credential-helpers repository
 #   command: go get github.com/docker/docker-credential-helpers
