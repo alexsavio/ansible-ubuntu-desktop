@@ -15,6 +15,7 @@
     - gparted
     - virtualbox
     - pandoc
+    - flameshot
     - network-manager-openvpn
     - chrome-gnome-shell
     - pdf-presenter-console
