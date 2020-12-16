@@ -2,20 +2,15 @@
 
 - name: rust | Install
   shell: curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y
-  changed_when: false
 
 - name: rust | Install toolchain
   shell: "{{ home_dir }}/.cargo/bin/rustup toolchain install {{ rust_version }}"
-  register: rustup_toolchain
-  changed_when: '"installed" in rustup_toolchain.stdout'
 
-- name: rust | Install items from {{ cargo_items | string }}
-  shell: "{{ home_dir }}/.cargo/bin/cargo install {{ item.name }} | cat"
+- name: rust | Install software from the list of cargo items
+  shell: "{{ home_dir }}/.cargo/bin/cargo install {{ item.name }}"
   with_items: "{{ cargo_items }}"
-  changed_when: false
-  when: item.name is defined
 
-- name: rust | Verify Binary installation
+- name: rust | Verify cargo items installation
   stat:
     path: "{{ home_dir }}/.cargo/bin/{{ item.binary }}"
   with_items: "{{ cargo_items }}"
