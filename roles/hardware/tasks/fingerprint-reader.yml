@@ -1,0 +1,20 @@
+---
+
+- name: fingerprint-reader | Add apt repository
+  apt_repository:
+    repo: ppa:fingerprint/fingerprint-gui
+    filename: fingerprint-gui
+    state: present
+  become: yes
+  become_method: sudo
+
+- name: fingerprint-reader | Install the fingerprint-gui
+  apt:
+    name:
+      - libbsapi
+      - policykit-1-fingerprint-gui
+      - fingerprint-gui
+    state: present
+    update_cache: yes
+  become: yes
+  become_method: sudo
