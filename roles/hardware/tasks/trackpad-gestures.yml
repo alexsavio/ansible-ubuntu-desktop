@@ -2,9 +2,11 @@
 
 - name: trackpad-gestures | Add the user {{ansible_user_id}} to the group 'input'
   user:
-    name: james
+    name: "{{ansible_user_id}}"
     groups: input
     append: yes
+  become: yes
+  become_method: sudo
 
 - name: trackpad-gestures | Install dependencies from apt
   apt:
@@ -29,7 +31,7 @@
     repo: https://github.com/bulletmark/libinput-gestures.git
     dest: "{{ soft_dir }}/libinput-gestures"
     update: true
-    version: {{ lib_latest_version.tag }}
+    version: "{{ lib_latest_version.tag }}"
 
 - name: trackpad-gestures | Install libinput-gestures
   command: make install
@@ -37,7 +39,7 @@
   become_method: sudo
   args:
     chdir: "{{ soft_dir }}/libinput-gestures"
-    creates: "/usr/bin/libinput-gestures-setup"
+    creates: /usr/bin/libinput-gestures-setup
 
 - name: trackpad-gestures | Set libinput-gestures to autostart
   command: libinput-gestures-setup autostart
