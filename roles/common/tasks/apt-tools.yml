@@ -68,7 +68,7 @@
     - cmake
     - exfat-fuse
     - exfat-utils
-    - fuse-utils
+    - fuse
     - ttf-mscorefonts-installer
     - apcalc
     - net-tools
