@@ -17,21 +17,21 @@
 # sudo apt-get -qq -y install buildah
 
 
-- name: podman | Add repository apt key
-  apt_key:
-    keyserver: https://download.opensuse.org
-    id: 4d64390375060aa4
-    state: present
-  become: yes
-  become_method: sudo
+# - name: podman | Add repository apt key
+#   apt_key:
+#     keyserver: https://download.opensuse.org
+#     id: 4d64390375060aa4
+#     state: present
+#   become: yes
+#   become_method: sudo
 
-- name: podman | Add apt repository
-  apt_repository:
-    repo: deb https://download.opensuse.org/repositories/devel:/kubic:/libcontainers:/stable/xUbuntu_{{ ansible_distribution_version }}/ /
-    filename: podman
-    state: present
-  become: yes
-  become_method: sudo
+# - name: podman | Add apt repository
+#   apt_repository:
+#     repo: deb https://download.opensuse.org/repositories/devel:/kubic:/libcontainers:/stable/xUbuntu_{{ ansible_distribution_version }}/ /
+#     filename: podman
+#     state: present
+#   become: yes
+#   become_method: sudo
 
 - name: podman | Install podman and buildah
   apt:
