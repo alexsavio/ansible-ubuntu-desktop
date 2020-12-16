@@ -1,4 +1,8 @@
 ---
 
-- import_tasks: fingerprint-reader.yml
-  tags: fingerprint-reader
+# TODO: still not available for groovy
+# - import_tasks: fingerprint-reader.yml
+#   tags: fingerprint-reader
+
+- import_tasks: trackpad-gestures.yml
+  tags: trackpad-gestures
