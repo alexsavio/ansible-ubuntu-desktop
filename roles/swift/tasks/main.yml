@@ -10,7 +10,7 @@
     - libicu-dev
     - git
     - libatomic1
-    - libicu66
+    - libicu67
     - libxml2
     - libcurl4
     - zlib1g-dev
