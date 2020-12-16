@@ -57,6 +57,7 @@
     - sudo
     - apt-transport-https
     - ca-certificates
+    - lsb-release
     - software-properties-common
     - ssh
     - rsync
