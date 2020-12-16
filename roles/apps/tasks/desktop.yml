@@ -25,7 +25,7 @@
 - name: desktop | Install energy related packages
   apt:
     name:
-    - powernap
+    # - powernap
     - powertop
     state: present
   become: yes
