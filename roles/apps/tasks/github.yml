@@ -9,7 +9,7 @@
 
 - name: github | Add CLI apt repository
   apt_repository:
-    repo: deb https://cli.github.com/packages {{ ansible_distribution_release }}
+    repo: https://cli.github.com/packages
     filename: github
     state: present
   become: yes
