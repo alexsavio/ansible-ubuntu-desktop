@@ -20,3 +20,6 @@
     shell: /bin/zsh
   become: yes
   become_method: sudo
+
+- import_tasks: git.yml
+  tags: git

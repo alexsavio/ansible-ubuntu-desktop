@@ -19,6 +19,7 @@
     name:
       - skype
       - slack
+      - teleconsole
       # - pycharm-community
     classic: yes
   become: yes
