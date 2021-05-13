@@ -6,6 +6,21 @@
 - name: rust | Install toolchain
   shell: "{{ home_dir }}/.cargo/bin/rustup toolchain install {{ rust_version }}"
 
+- name: Setting host facts using complex arguments
+  set_fact:
+    cargo_items:
+      - starship
+      - du-dust
+      - procs
+      - bat
+      - bottom
+      - tealdeer
+      - bandwhich
+      - exa
+      - zoxide
+      - grex
+      - fd-find
+
 - name: rust | Install software from the list of cargo items
   shell: "{{ home_dir }}/.cargo/bin/cargo install {{ item }}"
   with_items: "{{ cargo_items }}"
@@ -14,4 +29,5 @@
   stat:
     path: "{{ home_dir }}/.cargo/bin/{{ item.binary }}"
   with_items: "{{ cargo_items }}"
+
   when: item.binary is defined

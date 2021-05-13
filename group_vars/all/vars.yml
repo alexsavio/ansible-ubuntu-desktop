@@ -15,10 +15,8 @@ bin_dir: "{{ home_dir }}/bin"
 locale: en_US.UTF-8
 overwrite_if_exists: no
 
-python_version: 3.9.1
+python_version: 3.9.5
 
-rust_version: 1.48.0
-cargo_items: # The things that are going to be installed with cargo
-  - starship
+rust_version: 1.52.1
 
 n_cpus: 1

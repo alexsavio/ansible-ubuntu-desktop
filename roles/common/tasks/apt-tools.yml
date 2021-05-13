@@ -36,24 +36,12 @@
     - llvm
     - curl
     - git
-    - tig
-    - wget
-    - ranger
-    - direnv
     - ncdu
     - vim
-    - jq
-    - tmate
-    - neovim
-    - fasd
     - gnupg2
     - npm
     - ntp
-    - ack
     - ntpdate
-    - graphviz
-    - htop
-    - bash-completion
     - ufw
     - sudo
     - apt-transport-https
@@ -61,15 +49,27 @@
     - lsb-release
     - software-properties-common
     - ssh
+    - exfat-fuse
+    - exfat-utils
+    - fuse
+    - ack
+    - jq
+    - tig
+    - wget
+    - ranger
+    - direnv
+    - tmate
+    - neovim
+    - fasd
+    - graphviz
+    - htop
+    - bash-completion
     - rsync
     - sshpass
     - pass
     - xdot
     - language-pack-en
     - cmake
-    - exfat-fuse
-    - exfat-utils
-    - fuse
     - ttf-mscorefonts-installer
     - apcalc
     - net-tools
@@ -77,6 +77,8 @@
     - ssh-askpass
     - mtp-tools
     - mtr-tiny
+    - yank
+    - fzf
     state: present
   become: yes
   become_method: sudo
