@@ -1,0 +1,25 @@
+---
+
+- name: cloud_foundry | Add the Cloud Foundry gpg signing key to Apt
+  apt_key:
+    url: https://packages.cloudfoundry.org/debian/cli.cloudfoundry.org.key
+    state: present
+  become: yes
+  become_method: sudo
+
+- name: cloud_foundry | Add the Cloud Foundry Apt repository
+  apt_repository:
+    repo: deb https://packages.cloudfoundry.org/debian stable main
+    state: present
+    filename: cloudfoundry-cli
+  become: yes
+  become_method: sudo
+
+- name: cloud_foundry | Install Google Cloud SDK
+  apt:
+    name:
+    - cf7-cli
+    update_cache: yes
+    state: present
+  become: yes
+  become_method: sudo
