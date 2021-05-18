@@ -3,6 +3,7 @@ version := $(shell python -c 'import version; print(version.__version__)')
 python-apt:
 	wget -c http://de.archive.ubuntu.com/ubuntu/pool/main/p/python-apt/python3-apt_2.0.0_amd64.deb
 	dpkg-deb -xv python3-apt_2.0.0_amd64.deb .
+	chown -R ${USER} usr/
 	mv usr/lib/python3/dist-packages/* $(shell python -c "import site; print(site.getsitepackages()[0])")
 	rm -rf usr
 
@@ -21,6 +22,9 @@ install::
 	ansible-galaxy collection install -r requirements.yml
 
 install-dev:: install
+	poetry install
+
+install-dev::
 	pre-commit install
 
 install-ci:: install-build
