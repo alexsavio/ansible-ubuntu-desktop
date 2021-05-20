@@ -22,3 +22,23 @@
     block: |
       export PATH="$HOME/.nodenv/bin:$PATH"
       eval "$(nodenv init -)"
+
+- name: Create directories
+  file:
+    path: "{{ home_dir }}/.nodenv/plugins"
+    state: directory
+    owner: "{{ user }}"
+    group: "{{ group }}"
+  loop:
+    - "{{ soft_dir }}"
+    - "{{ bin_dir }}"
+    - "{{ tmp_install_dir }}"
+    - "{{ projects_dir }}"
+  args:
+    chdir: "{{ home_dir }}/.nodenv"
+
+- name: Clone the node-build repository in {{ home_dir }}/.nodenv/plugins
+  git:
+    repo: https://github.com/nodenv/node-build.git
+    dest: "{{ home_dir }}/.nodenv/plugins/node-build"
+    update: true
