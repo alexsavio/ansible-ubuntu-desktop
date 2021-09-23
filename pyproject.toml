@@ -6,7 +6,7 @@ authors = ["Alexandre Savio <alexsavio@gmail.com>"]
 
 [tool.poetry.dependencies]
 python = "^3.7"
-ansible = "^3.4.0"
+ansible = "^4.2.0"
 "github3.py" = "^2.0.0"
 
 [tool.poetry.dev-dependencies]
