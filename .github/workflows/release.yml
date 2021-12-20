@@ -18,9 +18,9 @@ jobs:
     - name: Set up Python 3
       uses: actions/setup-python@v1
       with:
-        python-version: 3.8.6
+        python-version: 3.9.7
 
-    - uses: pre-commit/action@v2.0.0
+    - uses: pre-commit/action@v2.0.3
       with:
         token: ${{ secrets.GITHUB_TOKEN }}
 
