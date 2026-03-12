@@ -22,6 +22,11 @@
   tags:
     - rust
 
+- name: rust | update rust toolchain
+  shell: "{{ home_dir }}/.cargo/bin/rustup update stable"
+  tags:
+    - rust
+
 - name: rust | install cargo packages
   shell: |
     {{ home_dir }}/.cargo/bin/cargo install '{{ item }}' --locked
