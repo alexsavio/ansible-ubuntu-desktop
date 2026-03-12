@@ -1,3 +1,7 @@
 ---
 homeschick_repositories:
   - { url: "https://github.com/alexsavio/dotfiles.git", branch: "thinkcentre" }
+
+rsync_sync_src_dest:
+  - { src: "{{ lookup('env', 'HOME') }}/projects/", dest: "{{ projects_dir }}/" }
+  - { src: "{{ lookup('env', 'HOME') }}/software/", dest: "{{ soft_dir }}/" }

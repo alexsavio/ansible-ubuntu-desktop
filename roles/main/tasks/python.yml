@@ -8,3 +8,6 @@
 - name: python | Install uv
   when: uv_exists is failed
   shell: curl -LsSf https://astral.sh/uv/install.sh | sh
+
+- name: python | Install latest Python via uv
+  shell: "{{ home_dir }}/.local/bin/uv python install"

@@ -19,7 +19,7 @@ roles/
       python.yml            # uv installation
       uvx.yml               # uv tool packages
       claude.yml            # Claude Code installation and config
-      vscode.yml            # VSCode extensions
+      zed.yml               # Zed editor + extensions
       zsh.yml               # Shell setup
       homeschick.yml        # Dotfiles via homesick
       home_folders.yml      # Directory structure

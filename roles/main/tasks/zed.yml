@@ -1,0 +1,16 @@
+---
+
+- name: zed | Check if Zed is installed
+  shell: command -v zed
+  register: zed_exists
+  ignore_errors: yes
+
+- name: zed | Install Zed
+  when: zed_exists is failed
+  shell: curl -fsSL https://zed.dev/install.sh | sh
+
+- name: zed | Install Zed extensions
+  shell: zed --install-extension {{ item }}
+  ignore_errors: yes
+  with_items:
+    "{{ zed_extensions }}"

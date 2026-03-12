@@ -43,5 +43,5 @@ ansible-playbook playbook.yml -l local -K --check
 | `zsh` | Oh My ZSH |
 | `homeschick` | Dotfiles |
 | `claude` | Claude Code + config |
-| `vscode` | VSCode extensions |
+| `zed` | Zed editor + extensions |
 | `rsync` | File synchronization |

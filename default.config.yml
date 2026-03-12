@@ -2,8 +2,8 @@
 ansible_user: "{{ lookup('env', 'USER') }}"
 ansible_group: "{{ ansible_user }}"
 
-home_dir: '/home/{{ ansible_user }}'
-downloads_dir: '{{ home_dir }}/Downloads'
+home_dir: "/home/{{ ansible_user }}"
+downloads_dir: "{{ home_dir }}/Downloads"
 soft_dir: "{{ home_dir }}/software"
 tmp_install_dir: "{{ home_dir }}/tmp"
 projects_dir: "{{ home_dir }}/projects"
@@ -27,7 +27,6 @@ apt_packages:
   - git
   - make
   - pass
-  - pipx
   - rsync
   - ssh
   - sshpass
@@ -102,70 +101,23 @@ uvx_packages:
   - tsrc
 
 claude_plugin_marketplaces:
-  - { name: "claude-plugins-official", url: "https://github.com/anthropics/claude-plugins-official.git" }
+  - {
+      name: "claude-plugins-official",
+      url: "https://github.com/anthropics/claude-plugins-official.git",
+    }
 
 claude_plugins:
   - { name: "rust-analyzer-lsp", marketplace: "claude-plugins-official" }
 
-vscode_extensions:
-  # Editor essentials
-  - editorconfig.editorconfig
-  - esbenp.prettier-vscode
-  - usernamehw.errorlens
-  - oderwat.indent-rainbow
-  - streetsidesoftware.code-spell-checker
-  - stkb.rewrap
-  - gruntfuggly.todo-tree
-  - sleistner.vscode-fileutils
-  - stuart.unique-window-colors
-  - perkovec.emoji
-  - chenzhe.split-line
-  - chrmarti.regex
-  - lmcarreiro.vscode-smart-column-indenter
-  - chouzz.vscode-better-align
-  - davidanson.vscode-markdownlint
-  - yzhang.markdown-all-in-one
-  - ritwickdey.liveserver
-  - vscode-icons-team.vscode-icons
-  # Git
-  - eamodio.gitlens
-  - waderyan.gitblame
-  - donjayamanne.githistory
-  - github.vscode-pull-request-github
-  - github.vscode-github-actions
-  # AI
-  - anthropic.claude-code
-  - github.copilot-chat
-  # Python
-  - ms-python.python
-  - ms-python.vscode-pylance
-  - charliermarsh.ruff
-  - pamaron.pytest-runner
-  # Rust
-  - rust-lang.rust-analyzer
-  - tamasfe.even-better-toml
-  - fill-labs.dependi
-  - vadimcn.vscode-lldb
-  - skellock.just
-  # Web / frontend
-  - bradlc.vscode-tailwindcss
-  - dbaeumer.vscode-eslint
-  # Infrastructure
-  - hashicorp.terraform
-  - 4ops.terraform
-  - erd0s.terraform-autocomplete
-  - redhat.ansible
-  - dhoeric.ansible-vault
-  - mkhl.direnv
-  - ms-azuretools.vscode-docker
-  - ms-vscode-remote.remote-ssh
-  - ms-vscode-remote.remote-ssh-edit
-  - ms-vscode-remote.remote-containers
-  # Data / notebooks
-  - ms-toolsai.jupyter
-  - ms-toolsai.jupyter-keymap
-  - ms-toolsai.jupyter-renderers
-  # Other
-  - dotjoshjohnson.xml
-  - redhat.vscode-yaml
-  - alefragnani.bookmarks
+zed_extensions:
+  - ansible
+  - dockerfile
+  - git-firefly
+  - html
+  - just
+  - make
+  - nix
+  - python-refactoring
+  - ruff
+  - toml
+  - yaml

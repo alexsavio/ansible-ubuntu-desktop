@@ -30,8 +30,8 @@
 - include_tasks: claude.yml
   tags: claude
 
-- include_tasks: vscode.yml
-  tags: vscode
+- include_tasks: zed.yml
+  tags: zed
 
 - include_tasks: rsync.yml
   tags: rsync
