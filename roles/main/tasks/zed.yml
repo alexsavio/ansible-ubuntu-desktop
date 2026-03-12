@@ -3,14 +3,15 @@
 - name: zed | Check if Zed is installed
   shell: command -v zed
   register: zed_exists
-  ignore_errors: yes
+  changed_when: false
+  failed_when: false
 
 - name: zed | Install Zed
   when: zed_exists is failed
-  shell: curl -fsSL https://zed.dev/install.sh | sh
+  shell: curl -fsSL https://zed.dev/install.sh | bash
 
 - name: zed | Install Zed extensions
-  shell: zed --install-extension {{ item }}
-  ignore_errors: yes
+  shell: "{{ home_dir }}/.local/bin/zed --install-extension {{ item }}"
+  failed_when: false
   with_items:
     "{{ zed_extensions }}"

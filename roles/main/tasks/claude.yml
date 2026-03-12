@@ -1,7 +1,7 @@
 ---
 
 - name: Install Claude Code
-  shell: curl -fsSL https://claude.ai/install.sh | sh
+  shell: curl -fsSL https://claude.ai/install.sh | bash
   args:
     creates: "{{ home_dir }}/.claude/local/bin/claude"
   tags:
@@ -11,8 +11,6 @@
   file:
     path: "{{ home_dir }}/.claude/{{ item }}"
     state: directory
-    owner: "{{ ansible_user }}"
-    group: "{{ ansible_group }}"
     mode: "0755"
   loop:
     - skills
@@ -24,8 +22,6 @@
   copy:
     src: claude/settings.json
     dest: "{{ home_dir }}/.claude/settings.json"
-    owner: "{{ ansible_user }}"
-    group: "{{ ansible_group }}"
     mode: "0600"
   tags:
     - claude
@@ -34,8 +30,6 @@
   copy:
     src: claude/CLAUDE.md
     dest: "{{ home_dir }}/.claude/CLAUDE.md"
-    owner: "{{ ansible_user }}"
-    group: "{{ ansible_group }}"
     mode: "0644"
   tags:
     - claude
@@ -44,8 +38,6 @@
   copy:
     src: "claude/skills/"
     dest: "{{ home_dir }}/.claude/skills/"
-    owner: "{{ ansible_user }}"
-    group: "{{ ansible_group }}"
     mode: "0644"
     directory_mode: "0755"
   tags:
@@ -55,8 +47,6 @@
   copy:
     src: "claude/commands/"
     dest: "{{ home_dir }}/.claude/commands/"
-    owner: "{{ ansible_user }}"
-    group: "{{ ansible_group }}"
     mode: "0644"
     directory_mode: "0755"
   tags:
