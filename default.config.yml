@@ -63,7 +63,7 @@ cargo_packages:
   - kalker
   - lsd
   - monolith
-  - nushell
+  - nu
   - oxker
   - pipecolor
   - procs
