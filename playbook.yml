@@ -1,6 +1,6 @@
 #!/usr/bin/env ansible-playbook
 ---
-- hosts: homeservers
+- hosts: all
   vars_files:
     - default.config.yml
 
@@ -11,8 +11,6 @@
         - "{{ playbook_dir }}/config.yml"
       tags: ['always']
 
-  any_errors_fatal: true
   roles:
     - { role: main, tags: main }
     # - { role: hardware, tags: hardware }
-    # - { role: cloud_tools, tags: cloud }

@@ -21,15 +21,9 @@
   tags:
     - rust
 
-- name: rust | set environment variables
-  shell: |
-    source $HOME/.cargo/env
-  tags:
-    - rust
-
 - name: rust | install cargo packages
   shell: |
-    {{ home_dir  }}/.cargo/bin/cargo install '{{ item }}' --locked
+    {{ home_dir }}/.cargo/bin/cargo install '{{ item }}' --locked
   with_items: "{{ cargo_packages }}"
   tags:
     - rust

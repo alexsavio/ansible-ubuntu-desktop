@@ -1,8 +1,6 @@
 ---
 - name: apt | Install apps from apt packages
   apt:
-    name: "{{ item }}"
+    pkg: "{{ apt_app_packages }}"
   become: yes
   become_method: sudo
-  with_items:
-    "{{ apt_app_packages }}"

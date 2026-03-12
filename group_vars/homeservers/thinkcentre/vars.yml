@@ -1,9 +1,3 @@
 ---
 homeschick_repositories:
   - { url: "https://github.com/alexsavio/dotfiles.git", branch: "thinkcentre" }
-
-create_folders:
-  - "{{ soft_dir }}"
-  - "{{ tmp_install_dir }}"
-  - "{{ projects_dir }}"
-  - "{{ bin_dir }}"

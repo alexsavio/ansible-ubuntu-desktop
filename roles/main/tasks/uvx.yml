@@ -1,0 +1,7 @@
+---
+
+- name: Install uvx packages
+  shell: uv tool install {{ item }}
+  ignore_errors: yes
+  with_items:
+    "{{ uvx_packages }}"

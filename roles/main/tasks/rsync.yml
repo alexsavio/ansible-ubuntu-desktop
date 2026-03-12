@@ -1,0 +1,8 @@
+---
+
+- name: Synchronization of src on the control machine to dest on the remote hosts
+  ansible.posix.synchronize:
+    src: "{{ item.src }}"
+    dest: "{{ item.dest }}"
+  with_items:
+    "{{ rsync_sync_src_dest }}"

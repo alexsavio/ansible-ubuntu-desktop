@@ -67,6 +67,9 @@ devdoc/
 .python-version
 vault-pass.txt
 .ansible_cache/
+.pytest_cache/
 roles/vpns
 *.deb
 .vscode
+.venv/
+uv.lock

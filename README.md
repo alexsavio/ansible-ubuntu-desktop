@@ -1,28 +1,47 @@
-# ansible-ubuntu-desktop
+# ansible-ubuntu24-desktop
 
-Provisioner for my profesional/personal Ubuntu 20.10 Desktop.
+Ansible provisioner for Ubuntu 24 desktop.
 
-## Preparation
+## Setup
 
-Activate your Python environment, and then:
+Install [uv](https://docs.astral.sh/uv/) and [just](https://just.systems/), then:
 
 ```bash
-make install-dev
+just deps-install-dev
 ```
 
 ## Customize
 
-Remember to create a new set of group variables in group_vars.
-You can copy the file in: `group_vars/laptops/xps15/vars.yml` and replace
-their values.
+Copy `default.config.yml` to `config.yml` and override any variables. Host-specific overrides go in `group_vars/`.
 
-## Launch
-
-In order to Ansible find the python3-apt installation,
-the Makefile downloads the .deb file and unpacks it into your Python environment.
-
-A `playbook` script entry is set in the Pipfile:
+## Usage
 
 ```bash
-ansible-playbook -K --extra-vars '@group_vars/laptops/xps15/vars.yml' playbook.yml
+# Provision localhost
+just local
+
+# Provision thinkcentre
+just thinkcentre
+
+# Run specific tags only
+ansible-playbook playbook.yml -l local -K --tags docker,rust
+
+# Dry run
+ansible-playbook playbook.yml -l local -K --check
 ```
+
+## Tags
+
+| Tag | Description |
+|-----|-------------|
+| `apt` | System packages |
+| `apt_apps` | Desktop applications |
+| `docker` | Docker CE |
+| `rust` | Rust toolchain + cargo packages |
+| `python` | uv installer |
+| `uvx` | uv tool packages |
+| `zsh` | Oh My ZSH |
+| `homeschick` | Dotfiles |
+| `claude` | Claude Code + config |
+| `vscode` | VSCode extensions |
+| `rsync` | File synchronization |

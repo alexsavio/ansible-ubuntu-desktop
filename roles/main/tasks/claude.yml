@@ -1,0 +1,79 @@
+---
+
+- name: Install Claude Code
+  shell: npm install -g @anthropic-ai/claude-code
+  tags:
+    - claude
+
+- name: Create .claude directories
+  file:
+    path: "{{ home_dir }}/.claude/{{ item }}"
+    state: directory
+    owner: "{{ ansible_user }}"
+    group: "{{ ansible_group }}"
+    mode: "0755"
+  loop:
+    - skills
+    - commands
+  tags:
+    - claude
+
+- name: Copy settings.json
+  copy:
+    src: claude/settings.json
+    dest: "{{ home_dir }}/.claude/settings.json"
+    owner: "{{ ansible_user }}"
+    group: "{{ ansible_group }}"
+    mode: "0600"
+  tags:
+    - claude
+
+- name: Copy CLAUDE.md
+  copy:
+    src: claude/CLAUDE.md
+    dest: "{{ home_dir }}/.claude/CLAUDE.md"
+    owner: "{{ ansible_user }}"
+    group: "{{ ansible_group }}"
+    mode: "0644"
+  tags:
+    - claude
+
+- name: Copy skills
+  copy:
+    src: "claude/skills/"
+    dest: "{{ home_dir }}/.claude/skills/"
+    owner: "{{ ansible_user }}"
+    group: "{{ ansible_group }}"
+    mode: "0644"
+    directory_mode: "0755"
+  tags:
+    - claude
+
+- name: Copy commands
+  copy:
+    src: "claude/commands/"
+    dest: "{{ home_dir }}/.claude/commands/"
+    owner: "{{ ansible_user }}"
+    group: "{{ ansible_group }}"
+    mode: "0644"
+    directory_mode: "0755"
+  tags:
+    - claude
+
+- name: Add Claude plugin marketplaces
+  shell: claude plugin marketplace add {{ item.url }}
+  ignore_errors: yes
+  loop: "{{ claude_plugin_marketplaces }}"
+  loop_control:
+    label: "{{ item.name }}"
+  tags:
+    - claude
+
+- name: Install Claude plugins
+  shell: claude plugin install {{ item.name }}@{{ item.marketplace }}
+  ignore_errors: yes
+  loop: "{{ claude_plugins }}"
+  loop_control:
+    label: "{{ item.name }}"
+  tags:
+    - claude

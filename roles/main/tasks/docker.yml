@@ -1,32 +1,23 @@
 ---
 - name: docker | Create the keyrings directory
-  command: |
-    install -m 0755 -d /etc/apt/keyrings
+  ansible.builtin.file:
+    path: /etc/apt/keyrings
+    state: directory
+    mode: "0755"
   become: yes
   become_method: sudo
 
-- name: docker | Add the Docker gpg signing key to Apt
-  apt_key:
+- name: docker | Add the Docker GPG key
+  ansible.builtin.get_url:
     url: https://download.docker.com/linux/ubuntu/gpg
-    state: present
-  become: yes
-  become_method: sudo
-
-- name: docker | Add the Docker gpg signing key to the keyrings directory
-  command: |
-    sudo curl -fsSL https://download.docker.com/linux/ubuntu/gpg -o /etc/apt/keyrings/docker.asc
-  become: yes
-  become_method: sudo
-
-- name: docker | Change the permissions of the Docker gpg signing key
-  command: |
-    sudo chmod go+r /etc/apt/keyrings/docker.asc
+    dest: /etc/apt/keyrings/docker.asc
+    mode: "0644"
   become: yes
   become_method: sudo
 
 - name: docker | Add the Docker Apt repository
   apt_repository:
-    repo: deb [arch=amd64 signed-by=/etc/apt/keyrings/docker.asc] https://download.docker.com/linux/ubuntu {{ ansible_distribution_release }} stable
+    repo: deb [arch={{ ansible_architecture | replace('x86_64', 'amd64') }} signed-by=/etc/apt/keyrings/docker.asc] https://download.docker.com/linux/ubuntu {{ ansible_distribution_release }} stable
     state: present
     filename: docker
   become: yes
@@ -58,93 +49,3 @@
     group: docker
   become: yes
   become_method: sudo
-
-# - name: docker | Get latest release from wagoodman/dive
-#   community.general.github_release:
-#     user: wagoodman
-#     repo: dive
-#     action: latest_release
-#   register: dive_latest_version
-
-# - name: docker | Install dive {{ dive_latest_version.tag }}
-#   apt:
-#     deb: https://github.com/wagoodman/dive/releases/download/{{ dive_latest_version.tag }}/dive_{{ dive_latest_version.tag | regex_replace('^v', '') }}_linux_amd64.deb
-#     force: yes
-#   become: yes
-#   become_method: sudo
-
-# - name: docker | Get latest release from docker/docker-credential-helpers
-#   community.general.github_release:
-#     user: docker
-#     repo: docker-credential-helpers
-#     action: latest_release
-#   register: credshelper_latest_version
-
-# - name: docker | Install dive {{ dive_latest_version.tag }}
-#   apt:
-#     deb: https://github.com/wagoodman/dive/releases/download/{{ dive_latest_version.tag }}/dive_{{ dive_latest_version.tag | regex_replace('^v', '') }}_linux_amd64.deb
-#     force: yes
-#   become: yes
-#   become_method: sudo
-
-# - set_fact:
-#     credentials_helper_path: "{{ soft_dir }}/docker-credential-helpers"
-
-# - name: docker | Clone the docker-credential-helpers repository
-#   git:
-#     repo: https://github.com/docker/docker-credential-helpers
-#     dest: "{{ soft_dir }}/docker-credential-helpers"
-#     version: "{{ credshelper_latest_version.tag }}"
-
-# - name: docker | Install build dependencies for docker-credential-helpers
-#   apt:
-#     name:
-#       - libsecret-1-dev
-#     state: present
-#   become: yes
-#   become_method: sudo
-
-# - name: docker | Compile docker-credential-helpers with pass
-#   shell: make pass
-#   args:
-#     chdir: "{{ credentials_helper_path }}"
-
-# - name: docker | Create symbolic link to docker-credential-pass in {{ home_dir }}/bin
-#   file:
-#     src: "{{ credentials_helper_path }}/bin/docker-credential-pass"
-#     dest: "{{ bin_dir }}/docker-credential-pass"
-#     state: link
-
-# - name: docker | Get docker version
-#   shell: "docker -v | cut -d ' ' -f 3 | cut -d ',' -f 1"
-#   register: docker_version
-
-# - name: docker | Configure pass as credential storage for docker
-#   blockinfile:
-#     path: "{{ home_dir }}/.docker/config.json"
-#     block: |
-#       {
-#         "auths": {
-#           "https://index.docker.io/v1/": {}
-#         },
-#         "HttpHeaders": {
-#           "User-Agent": "Docker-Client/{{ docker_version.stdout }}(linux)"
-#         },
-#         "credsStore": "pass",
-#         "credHelpers": {
-#           "asia.gcr.io": "gcloud",
-#           "eu.gcr.io": "gcloud",
-#           "gcr.io": "gcloud",
-#           "marketplace.gcr.io": "gcloud",
-#           "staging-k8s.gcr.io": "gcloud",
-#           "us.gcr.io": "gcloud"
-#         }
-#       }
-#     mode: 0644
-#     owner: "{{ user }}"
-#     group: "{{ group }}"
-#     marker: ""
-#     create: yes
-# # TODO: initialize pass
-# # gpg --full-generate-key
-# # pass init placeholder-gpg-key

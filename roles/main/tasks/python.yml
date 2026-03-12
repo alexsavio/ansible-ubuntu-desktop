@@ -1,7 +1,10 @@
 ---
 
-- name: python | Install uv
-  command: pipx install uv
+- name: python | Check if uv is installed
+  shell: command -v uv
+  register: uv_exists
+  ignore_errors: yes
 
-# - name: python | Use uv to install Python
-#   command: run uv install python --preview
+- name: python | Install uv
+  when: uv_exists is failed
+  shell: curl -LsSf https://astral.sh/uv/install.sh | sh

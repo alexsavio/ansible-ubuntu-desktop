@@ -1,5 +1,3 @@
 ---
-
-# repository and branch where your dotfiles are
-homeschick_dotfiles: alexsavio/dotfiles
-dotfiles_branch: xps
+homeschick_repositories:
+  - { url: "https://github.com/alexsavio/dotfiles.git", branch: "xps" }
