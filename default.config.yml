@@ -25,6 +25,7 @@ apt_packages:
   - curl
   - direnv
   - git
+  - libsmbclient-dev
   - make
   - pass
   - rsync
