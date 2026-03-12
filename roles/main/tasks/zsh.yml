@@ -5,9 +5,9 @@
   args:
     creates: "{{ home_dir }}/.oh-my-zsh"
 
-- name: zsh | Change the default shell for {{ user }}
+- name: zsh | Change the default shell for {{ target_user }}
   user:
-    name: "{{ user }}"
+    name: "{{ target_user }}"
     shell: /bin/zsh
   become: yes
   become_method: sudo

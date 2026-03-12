@@ -10,7 +10,7 @@ deps-install-dev:
 
 # install ansible galaxy dependencies
 deps-post:
-    ansible-galaxy collection install -r requirements.yml
+    uv run ansible-galaxy collection install -r requirements.yml
 
 clean: clean-ansible
 
@@ -20,8 +20,16 @@ clean-ansible:
 
 # run provisioning on localhost
 local:
-    ansible-playbook playbook.yml -l local -K
+    uv run ansible-playbook playbook.yml -l local -K
+
+# ensure ssh agent has a key loaded
+[private]
+ensure-ssh-agent:
+    #!/usr/bin/env bash
+    if ! ssh-add -l &>/dev/null; then
+        ssh-add
+    fi
 
 # run provisioning on thinkcentre
-thinkcentre:
-    ansible-playbook playbook.yml -l thinkcentre
+thinkcentre: ensure-ssh-agent
+    uv run ansible-playbook playbook.yml -l thinkcentre -K

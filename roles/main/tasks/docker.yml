@@ -43,9 +43,9 @@
   become: yes
   become_method: sudo
 
-- name: docker | Add the user {{ user }} to the docker group
+- name: docker | Add the user {{ target_user }} to the docker group
   user:
-    name: "{{ user }}"
+    name: "{{ target_user }}"
     group: docker
   become: yes
   become_method: sudo
