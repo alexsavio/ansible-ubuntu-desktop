@@ -35,3 +35,11 @@
   with_items: "{{ cargo_packages }}"
   tags:
     - rust
+
+- name: rust | install yazi via yazi-build
+  shell: |
+    {{ home_dir }}/.cargo/bin/cargo install --force yazi-build
+  register: yazi_result
+  changed_when: "'Installed package' in yazi_result.stderr"
+  tags:
+    - rust

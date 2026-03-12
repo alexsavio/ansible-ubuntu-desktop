@@ -46,6 +46,8 @@ apt_app_packages:
 
 cargo_packages:
   # CLI tools
+  - bacon
+  - bandwhich
   - bat
   - bdt
   - broot
@@ -68,22 +70,49 @@ cargo_packages:
   - nu
   - oxker
   - pipecolor
+  - porsmo
   - procs
   - pumas
   - ripgrep
   - rm-improved
+  - rustmission
   - sd
   - starship
+  - stu
   - tailspin
   - tealdeer
   - termscp
   - tokei
+  - turbovault
+  - typos-cli
   - watchexec-cli
   - xcp
   - xh
-  - yazi-fm
-  - yazi-cli
   - zoxide
+  # Cargo dev tools
+  - cargo-audit
+  - cargo-deny
+  - cargo-expand
+  - cargo-features-manager
+  - cargo-generate
+  - cargo-insta
+  - cargo-llvm-cov
+  - cargo-make
+  - cargo-nextest
+  - cargo-outdated
+  - cargo-sweep
+  - cargo-udeps
+  - cargo-watch
+  - sqlx-cli
+  # Niche / project-specific
+  - action-validator
+  - basic-http-server
+  - flash-watcher
+  - rustfilt
+  - systemfd
+  - trunk
+  - uv-migrator
+  - wasm-pack
   # Git tools
   - clog-cli
   - git-cliff
