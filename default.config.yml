@@ -25,9 +25,6 @@ apt_packages:
   - curl
   - direnv
   - git
-  - libasound2-dev
-  - libpcap-dev
-  - libsmbclient-dev
   - make
   - pass
   - rsync
@@ -124,6 +121,12 @@ cargo_packages:
   - pylyzer
   # Network & monitoring
   - sniffnet
+
+# APT packages required to build specific cargo crates
+cargo_build_deps:
+  - libasound2-dev   # sniffnet (alsa-sys)
+  - libpcap-dev      # sniffnet (pcap)
+  - libsmbclient-dev # termscp (pavao-sys)
 
 uvx_packages:
   - httpie

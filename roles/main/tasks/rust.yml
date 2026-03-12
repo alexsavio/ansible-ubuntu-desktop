@@ -27,6 +27,15 @@
   tags:
     - rust
 
+- name: rust | install cargo build dependencies
+  apt:
+    name: "{{ cargo_build_deps }}"
+    state: present
+  become: yes
+  become_method: sudo
+  tags:
+    - rust
+
 - name: rust | install cargo packages
   shell: |
     {{ home_dir }}/.cargo/bin/cargo install '{{ item }}' --locked
