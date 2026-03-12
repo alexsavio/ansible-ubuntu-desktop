@@ -3,12 +3,25 @@
 - set_fact:
     homeschick_home: "{{ home_dir }}/.homesick/repos/homeshick"
 
+- name: homeschick | Update GitHub SSH host key
+  known_hosts:
+    name: github.com
+    key: "{{ lookup('pipe', 'ssh-keyscan github.com 2>/dev/null') }}"
+    path: "{{ home_dir }}/.ssh/known_hosts"
+
+- name: homeschick | Ensure homeschick remote uses HTTPS
+  command:
+    cmd: git remote set-url origin https://github.com/andsens/homeshick.git
+    chdir: "{{ homeschick_home }}"
+  failed_when: false
+  changed_when: false
+
 - name: homeschick | Clone homeschick
   git:
     repo: https://github.com/andsens/homeshick.git
     dest: "{{ homeschick_home }}"
 
-- name: homeschick | Clone {{ item.url }} at branch {{ item.branch }} into homeschick
+- name: homeschick | Clone dotfiles repositories
   git:
     repo: "{{ item.url }}"
     dest: "{{ home_dir }}/.homesick/repos/dotfiles"

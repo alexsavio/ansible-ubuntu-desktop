@@ -73,3 +73,5 @@ roles/vpns
 .vscode
 .venv/
 uv.lock
+.claude/
+.envrc
