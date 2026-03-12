@@ -1,7 +1,7 @@
 ---
 
 - name: Install uvx packages
-  shell: uv tool install {{ item }}
-  ignore_errors: yes
+  shell: "{{ home_dir }}/.local/bin/uv tool install {{ item }}"
+  failed_when: false
   with_items:
     "{{ uvx_packages }}"

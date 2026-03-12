@@ -1,7 +1,9 @@
 ---
 
 - name: Install Claude Code
-  shell: npm install -g @anthropic-ai/claude-code
+  shell: curl -fsSL https://claude.ai/install.sh | sh
+  args:
+    creates: "{{ home_dir }}/.claude/local/bin/claude"
   tags:
     - claude
 
@@ -61,8 +63,8 @@
     - claude
 
 - name: Add Claude plugin marketplaces
-  shell: claude plugin marketplace add {{ item.url }}
-  ignore_errors: yes
+  shell: "{{ home_dir }}/.claude/local/bin/claude plugin marketplace add {{ item.url }}"
+  failed_when: false
   loop: "{{ claude_plugin_marketplaces }}"
   loop_control:
     label: "{{ item.name }}"
@@ -70,8 +72,8 @@
     - claude
 
 - name: Install Claude plugins
-  shell: claude plugin install {{ item.name }}@{{ item.marketplace }}
-  ignore_errors: yes
+  shell: "{{ home_dir }}/.claude/local/bin/claude plugin install {{ item.name }}@{{ item.marketplace }}"
+  failed_when: false
   loop: "{{ claude_plugins }}"
   loop_control:
     label: "{{ item.name }}"
