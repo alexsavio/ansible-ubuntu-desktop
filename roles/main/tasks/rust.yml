@@ -30,6 +30,8 @@
 - name: rust | install cargo packages
   shell: |
     {{ home_dir }}/.cargo/bin/cargo install '{{ item }}' --locked
+  register: cargo_result
+  changed_when: "'Installed package' in cargo_result.stderr"
   with_items: "{{ cargo_packages }}"
   tags:
     - rust
